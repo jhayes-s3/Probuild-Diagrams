@@ -1,0 +1,192 @@
+{
+  "components": [
+    {
+      "text": "### Tool Rental Request",
+      "type": "text",
+      "id": "Heading_main",
+      "layout": {
+        "row": "row_0",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### User Information",
+      "type": "text",
+      "id": "Subheading_user_info",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Full Name",
+      "type": "textfield",
+      "id": "Field_fullName",
+      "key": "fullName",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Account ID / Membership Number",
+      "type": "textfield",
+      "id": "Field_accountId",
+      "key": "accountId",
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Email Address",
+      "type": "textfield",
+      "id": "Field_email",
+      "key": "email",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_3",
+        "col": 8
+      }
+    },
+    {
+      "label": "Phone Number",
+      "type": "textfield",
+      "id": "Field_phone",
+      "key": "phone",
+      "layout": {
+        "row": "row_3",
+        "col": 8
+      }
+    },
+    {
+      "text": "##### Tool Selection",
+      "type": "text",
+      "id": "Subheading_tool_selection",
+      "layout": {
+        "row": "row_4",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Name",
+      "type": "textfield",
+      "layout": {
+        "row": "row_5",
+        "columns": null
+      },
+      "id": "Field_15193lj",
+      "key": "toolName"
+    },
+    {
+      "label": "Quantity",
+      "type": "number",
+      "id": "Field_quantity_cementMixers",
+      "key": "toolQuantity",
+      "validate": {
+        "min": 1
+      },
+      "layout": {
+        "row": "row_5",
+        "col": 8
+      }
+    },
+    {
+      "text": "##### Rental Period",
+      "type": "text",
+      "id": "Subheading_rental_period",
+      "layout": {
+        "row": "row_10",
+        "col": 16
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_startDate",
+      "key": "startDate",
+      "dateLabel": "Desired Start Date",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_endDate",
+      "key": "endDate",
+      "dateLabel": "Desired End Date",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 8
+      }
+    },
+    {
+      "label": "Check online or in store?",
+      "values": [
+        {
+          "label": "Online",
+          "value": "checkOnline"
+        },
+        {
+          "label": "In Store",
+          "value": "checkInStore"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_0u2pf6o",
+        "columns": null
+      },
+      "id": "Field_1gi0qzi",
+      "key": "whereCheck",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "text": "##### Confirmation",
+      "type": "text",
+      "id": "Subheading_confirmation",
+      "layout": {
+        "row": "row_15",
+        "col": 16
+      }
+    },
+    {
+      "label": "I agree to the Rental Terms and Conditions",
+      "type": "checkbox",
+      "id": "Field_termsAgreement",
+      "key": "termsAgreement",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_16",
+        "col": 16
+      }
+    }
+  ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19,
+  "id": "Tool_Rental_Request_Form",
+  "generated": true,
+  "type": "default"
+}

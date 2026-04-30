@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns0:definitions xmlns:ns0="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:ns2="http://camunda.org/schema/zeebe/1.0" xmlns:ns3="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:ns4="http://www.omg.org/spec/DD/20100524/DC" xmlns:ns5="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ns1="http://camunda.org/schema/modeler/1.0" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.44.0" ns1:executionPlatform="Camunda Cloud" ns1:executionPlatformVersion="8.8.0">
+  <ns0:collaboration id="Collaboration_0naonu7" name="Operational model">
+    <ns0:participant id="Participant_0vyzakc" name="Probuild" processRef="Process_1hjlosa" />
+  </ns0:collaboration>
+  <ns0:message id="Message_09mcpn0" name="Message_09mcpn0">
+    <ns0:extensionElements>
+      <ns2:subscription correlationKey="=FinanceRequestCorrelationKey" />
+    </ns0:extensionElements>
+  </ns0:message>
+  <ns0:message id="Message_1rqem3o" name="waitForFinTrustMessage">
+    <ns0:extensionElements>
+      <ns2:subscription correlationKey="=waiting&#10;" />
+    </ns0:extensionElements>
+  </ns0:message>
+  <ns0:message id="Message_0ru0lvi" name="Message_02mnphm">
+    <ns0:extensionElements>
+      <ns2:subscription correlationKey="=receiveApplication" />
+    </ns0:extensionElements>
+  </ns0:message>
+  <ns0:message id="Message_0kmjq2l" name="Message_2tjd2cf">
+    <ns0:extensionElements>
+      <ns2:subscription correlationKey="=orderId" />
+    </ns0:extensionElements>
+  </ns0:message>
+  <ns0:process id="Process_1hjlosa" isExecutable="true">
+    <ns0:laneSet id="LaneSet_0md4uhc">
+      <ns0:lane id="Lane_1eb0aug" name="Tool Hire">
+        <ns0:flowNodeRef>Activity_06e4ggo</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Event_173ezmp</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Gateway_1th128r</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Gateway_19aouai</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Activity_1ht2zqn</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Activity_0dxajqx</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Activity_0pshc28</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Event_12b50v5</ns0:flowNodeRef>
+        <ns0:flowNodeRef>Activity_0q4rv6k</ns0:flowNodeRef>
+      </ns0:lane>
+    </ns0:laneSet>
+    <ns0:userTask id="Activity_06e4ggo" name="Check tool type availability in store">
+      <ns0:extensionElements>
+        <ns2:userTask />
+        <ns2:formDefinition formId="Check_Tool_Availability_Form" />
+      </ns0:extensionElements>
+      <ns0:incoming>Flow_0mwhskm</ns0:incoming>
+      <ns0:outgoing>Flow_17zt9xr</ns0:outgoing>
+    </ns0:userTask>
+    <ns0:startEvent id="Event_173ezmp" name="Customer requests tool hire">
+      <ns0:extensionElements />
+      <ns0:outgoing>Flow_1ifavev</ns0:outgoing>
+    </ns0:startEvent>
+    <ns0:exclusiveGateway id="Gateway_1th128r">
+      <ns0:incoming>Flow_17zt9xr</ns0:incoming>
+      <ns0:incoming>Flow_1x8rula</ns0:incoming>
+      <ns0:outgoing>Flow_0a53zed</ns0:outgoing>
+    </ns0:exclusiveGateway>
+    <ns0:exclusiveGateway id="Gateway_19aouai" name="How is customer checking availability?">
+      <ns0:incoming>Flow_1l1hqco</ns0:incoming>
+      <ns0:outgoing>Flow_126etqz</ns0:outgoing>
+      <ns0:outgoing>Flow_0mwhskm</ns0:outgoing>
+    </ns0:exclusiveGateway>
+    <ns0:userTask id="Activity_1ht2zqn" name="Submit Customer Tool Preference">
+      <ns0:extensionElements>
+        <ns2:userTask />
+        <ns2:formDefinition formId="Tool_Rental_Request_Form" />
+      </ns0:extensionElements>
+      <ns0:incoming>Flow_1ifavev</ns0:incoming>
+      <ns0:outgoing>Flow_1l1hqco</ns0:outgoing>
+    </ns0:userTask>
+    <ns0:serviceTask id="Activity_0dxajqx" name="Query tool availability in system" ns2:modelerTemplate="io.camunda.connectors.HttpJson.v2" ns2:modelerTemplateVersion="12" ns2:modelerTemplateIcon="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAxOCAxOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE3LjAzMzUgOC45OTk5N0MxNy4wMzM1IDEzLjQ0NzUgMTMuNDI4MSAxNy4wNTI5IDguOTgwNjUgMTcuMDUyOUM0LjUzMzE2IDE3LjA1MjkgMC45Mjc3NjUgMTMuNDQ3NSAwLjkyNzc2NSA4Ljk5OTk3QzAuOTI3NzY1IDQuNTUyNDggNC41MzMxNiAwLjk0NzA4MyA4Ljk4MDY1IDAuOTQ3MDgzQzEzLjQyODEgMC45NDcwODMgMTcuMDMzNSA0LjU1MjQ4IDE3LjAzMzUgOC45OTk5N1oiIGZpbGw9IiM1MDU1NjIiLz4KPHBhdGggZD0iTTQuOTMxMjYgMTQuMTU3MUw2Ljc4MTA2IDMuNzE0NzFIMTAuMTM3NUMxMS4xOTE3IDMuNzE0NzEgMTEuOTgyNCAzLjk4MzIzIDEyLjUwOTUgNC41MjAyN0MxMy4wNDY1IDUuMDQ3MzYgMTMuMzE1IDUuNzMzNTggMTMuMzE1IDYuNTc4OTJDMTMuMzE1IDcuNDQ0MTQgMTMuMDcxNCA4LjE1NTIyIDEyLjU4NDEgOC43MTIxNUMxMi4xMDY3IDkuMjU5MTMgMTEuNDU1MyA5LjYzNzA1IDEwLjYyOTggOS44NDU5TDEyLjA2MTkgMTQuMTU3MUgxMC4zMzE1TDkuMDMzNjQgMTAuMDI0OUg3LjI0MzUxTDYuNTEyNTQgMTQuMTU3MUg0LjkzMTI2Wk03LjQ5NzExIDguNTkyODFIOS4yNDI0OEM5Ljk5ODMyIDguNTkyODEgMTAuNTkwMSA4LjQyMzc0IDExLjAxNzcgOC4wODU2MUMxMS40NTUzIDcuNzM3NTMgMTEuNjc0MSA3LjI2NTEzIDExLjY3NDEgNi42Njg0MkMxMS42NzQxIDYuMTkxMDYgMTEuNTI0OSA1LjgxODExIDExLjIyNjUgNS41NDk1OUMxMC45MjgyIDUuMjcxMTMgMTAuNDU1OCA1LjEzMTkgOS44MDkzNiA1LjEzMTlIOC4xMDg3NEw3LjQ5NzExIDguNTkyODFaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4K">
+      <ns0:extensionElements>
+        <ns2:taskDefinition type="io.camunda:http-json:1" retries="3" />
+        <ns2:ioMapping>
+          <ns2:input source="noAuth" target="authentication.type" />
+          <ns2:input source="GET" target="method" />
+          <ns2:input source="http://localhost:8081/tools/available" target="url" />
+          <ns2:input source="=false" target="storeResponse" />
+          <ns2:input source="=20" target="connectionTimeoutInSeconds" />
+          <ns2:input source="=20" target="readTimeoutInSeconds" />
+        </ns2:ioMapping>
+        <ns2:taskHeaders>
+          <ns2:header key="elementTemplateVersion" value="12" />
+          <ns2:header key="elementTemplateId" value="io.camunda.connectors.HttpJson.v2" />
+          <ns2:header key="resultVariable" value="response" />
+          <ns2:header key="retryBackoff" value="PT0S" />
+        </ns2:taskHeaders>
+      </ns0:extensionElements>
+      <ns0:incoming>Flow_0a53zed</ns0:incoming>
+      <ns0:outgoing>Flow_1sc3on7</ns0:outgoing>
+    </ns0:serviceTask>
+    <ns0:sequenceFlow id="Flow_0mwhskm" sourceRef="Gateway_19aouai" targetRef="Activity_06e4ggo">
+      <ns0:conditionExpression xsi:type="ns0:tFormalExpression">=whereCheck = "checkInStore"</ns0:conditionExpression>
+    </ns0:sequenceFlow>
+    <ns0:sequenceFlow id="Flow_17zt9xr" sourceRef="Activity_06e4ggo" targetRef="Gateway_1th128r" />
+    <ns0:sequenceFlow id="Flow_126etqz" sourceRef="Gateway_19aouai" targetRef="Activity_0pshc28">
+      <ns0:conditionExpression xsi:type="ns0:tFormalExpression">=whereCheck = "checkOnline"</ns0:conditionExpression>
+    </ns0:sequenceFlow>
+    <ns0:sequenceFlow id="Flow_1x8rula" sourceRef="Activity_0pshc28" targetRef="Gateway_1th128r" />
+    <ns0:sequenceFlow id="Flow_1ifavev" sourceRef="Event_173ezmp" targetRef="Activity_1ht2zqn" />
+    <ns0:sequenceFlow id="Flow_0a53zed" sourceRef="Gateway_1th128r" targetRef="Activity_0dxajqx" />
+    <ns0:sequenceFlow id="Flow_1l1hqco" sourceRef="Activity_1ht2zqn" targetRef="Gateway_19aouai" />
+    <ns0:sequenceFlow id="Flow_1sc3on7" sourceRef="Activity_0dxajqx" targetRef="Activity_0q4rv6k" />
+    <ns0:serviceTask id="Activity_0pshc28" name="Check tool type availability online">
+      <ns0:extensionElements>
+        <ns2:taskDefinition type="checkToolTypeAvailability" />
+        <ns2:ioMapping>
+          <ns2:output source="=result1" target="result" />
+        </ns2:ioMapping>
+      </ns0:extensionElements>
+      <ns0:incoming>Flow_126etqz</ns0:incoming>
+      <ns0:outgoing>Flow_1x8rula</ns0:outgoing>
+    </ns0:serviceTask>
+    <ns0:endEvent id="Event_12b50v5">
+      <ns0:incoming>Flow_0fm6zl9</ns0:incoming>
+    </ns0:endEvent>
+    <ns0:sequenceFlow id="Flow_0fm6zl9" sourceRef="Activity_0q4rv6k" targetRef="Event_12b50v5" />
+    <ns0:userTask id="Activity_0q4rv6k" name="Working Check">
+      <ns0:extensionElements>
+        <ns2:userTask />
+        <ns2:formDefinition formId="Tool_Rental_Request_Form" />
+      </ns0:extensionElements>
+      <ns0:incoming>Flow_1sc3on7</ns0:incoming>
+      <ns0:outgoing>Flow_0fm6zl9</ns0:outgoing>
+    </ns0:userTask>
+  </ns0:process>
+  <ns3:BPMNDiagram id="BPMNDiagram_1">
+    <ns3:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0naonu7">
+      <ns3:BPMNShape id="BPMNShape_1hxxano" bpmnElement="Participant_0vyzakc" isHorizontal="true">
+        <ns4:Bounds x="160" y="85" width="1180" height="430" />
+        <ns3:BPMNLabel />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Lane_1eb0aug_di" bpmnElement="Lane_1eb0aug" isHorizontal="true">
+        <ns4:Bounds x="190" y="85" width="1150" height="430" />
+        <ns3:BPMNLabel />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Activity_1voyg3g_di" bpmnElement="Activity_06e4ggo">
+        <ns4:Bounds x="659" y="330" width="100" height="80" />
+        <ns3:BPMNLabel />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Event_173ezmp_di" bpmnElement="Event_173ezmp">
+        <ns4:Bounds x="242" y="272" width="36" height="36" />
+        <ns3:BPMNLabel>
+          <ns4:Bounds x="218" y="315" width="85" height="27" />
+        </ns3:BPMNLabel>
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Gateway_1th128r_di" bpmnElement="Gateway_1th128r" isMarkerVisible="true">
+        <ns4:Bounds x="804" y="265" width="50" height="50" />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Gateway_19aouai_di" bpmnElement="Gateway_19aouai" isMarkerVisible="true">
+        <ns4:Bounds x="554" y="265" width="50" height="50" />
+        <ns3:BPMNLabel>
+          <ns4:Bounds x="614" y="270" width="83" height="40" />
+        </ns3:BPMNLabel>
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Activity_1ht2zqn_di" bpmnElement="Activity_1ht2zqn">
+        <ns4:Bounds x="369" y="250" width="100" height="80" />
+        <ns3:BPMNLabel />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Activity_14015qi_di" bpmnElement="Activity_0dxajqx">
+        <ns4:Bounds x="899" y="250" width="100" height="80" />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Activity_0j9ggaj_di" bpmnElement="Activity_0pshc28">
+        <ns4:Bounds x="659" y="170" width="100" height="80" />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Event_12b50v5_di" bpmnElement="Event_12b50v5">
+        <ns4:Bounds x="1272" y="272" width="36" height="36" />
+      </ns3:BPMNShape>
+      <ns3:BPMNShape id="Activity_1e4seem_di" bpmnElement="Activity_0q4rv6k">
+        <ns4:Bounds x="1070" y="250" width="100" height="80" />
+        <ns3:BPMNLabel />
+      </ns3:BPMNShape>
+      <ns3:BPMNEdge id="Flow_0mwhskm_di" bpmnElement="Flow_0mwhskm">
+        <ns5:waypoint x="579" y="315" />
+        <ns5:waypoint x="579" y="370" />
+        <ns5:waypoint x="659" y="370" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_17zt9xr_di" bpmnElement="Flow_17zt9xr">
+        <ns5:waypoint x="759" y="370" />
+        <ns5:waypoint x="830" y="370" />
+        <ns5:waypoint x="830" y="315" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_126etqz_di" bpmnElement="Flow_126etqz">
+        <ns5:waypoint x="579" y="265" />
+        <ns5:waypoint x="579" y="210" />
+        <ns5:waypoint x="659" y="210" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_1x8rula_di" bpmnElement="Flow_1x8rula">
+        <ns5:waypoint x="759" y="210" />
+        <ns5:waypoint x="829" y="210" />
+        <ns5:waypoint x="829" y="265" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_1ifavev_di" bpmnElement="Flow_1ifavev">
+        <ns5:waypoint x="278" y="290" />
+        <ns5:waypoint x="369" y="290" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_0a53zed_di" bpmnElement="Flow_0a53zed">
+        <ns5:waypoint x="854" y="290" />
+        <ns5:waypoint x="899" y="290" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_1l1hqco_di" bpmnElement="Flow_1l1hqco">
+        <ns5:waypoint x="469" y="290" />
+        <ns5:waypoint x="554" y="290" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_1sc3on7_di" bpmnElement="Flow_1sc3on7">
+        <ns5:waypoint x="999" y="290" />
+        <ns5:waypoint x="1070" y="290" />
+      </ns3:BPMNEdge>
+      <ns3:BPMNEdge id="Flow_0fm6zl9_di" bpmnElement="Flow_0fm6zl9">
+        <ns5:waypoint x="1170" y="290" />
+        <ns5:waypoint x="1272" y="290" />
+      </ns3:BPMNEdge>
+    </ns3:BPMNPlane>
+  </ns3:BPMNDiagram>
+</ns0:definitions>

@@ -1,0 +1,33 @@
+{
+  "components": [
+    {
+      "label": "Is tool available?",
+      "values": [
+        {
+          "label": "Yes",
+          "value": "true"
+        },
+        {
+          "label": "No",
+          "value": "false"
+        }
+      ],
+      "type": "radio",
+      "layout": {
+        "row": "Row_1n0ntsv",
+        "columns": null
+      },
+      "id": "Field_1nezu9b",
+      "key": "isToolAvailable"
+    }
+  ],
+  "type": "default",
+  "id": "Check_Tool_Availability_Form",
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.8.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19
+}

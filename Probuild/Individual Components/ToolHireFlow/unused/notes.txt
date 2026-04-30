@@ -1,0 +1,2 @@
+Check tool type availability online: Check if tool even exists by name, ie 'banana' shall not work grrrr
+Query tool type availability in system: Now we know that the name exists, search for an available one with that name, returning true and the id of the tool if it exists
