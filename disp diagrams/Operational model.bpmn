@@ -140,8 +140,6 @@
         <bpmn:flowNodeRef>locate-items</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>pack-items-and-take-to-loading-dock</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>load-items-to-delivery-vehicle</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>move-to-pickup-counter</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event-send-pickup-ready-email</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_04vrn6g</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>count-stock-items</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>compare-actual-vs-system-stock</bpmn:flowNodeRef>
@@ -157,6 +155,8 @@
         <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1spt6ya</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1e5jvyb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event-send-pickup-ready-email</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>move-to-pickup-counter</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0uvh248">
           <bpmn:lane id="Lane_1brzvkt" name="maintanance team">
             <bpmn:flowNodeRef>move-tools-to-service-bay</bpmn:flowNodeRef>
@@ -179,8 +179,6 @@
             <bpmn:flowNodeRef>locate-items</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>pack-items-and-take-to-loading-dock</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>load-items-to-delivery-vehicle</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>move-to-pickup-counter</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Event-send-pickup-ready-email</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_04vrn6g</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>count-stock-items</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>compare-actual-vs-system-stock</bpmn:flowNodeRef>
@@ -190,6 +188,8 @@
             <bpmn:flowNodeRef>Event-report-to-manager</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_1vsn6it</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event-send-pickup-ready-email</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>move-to-pickup-counter</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_0uqi9r8" name="warehouse manager">
             <bpmn:flowNodeRef>Event-notify-tools-are-ready-to-process</bpmn:flowNodeRef>
@@ -819,17 +819,6 @@
       <bpmn:incoming>Flow_1jh9ye8</bpmn:incoming>
       <bpmn:outgoing>Flow_1mouaua</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:manualTask id="deliver-items-to-address" name="deliver items to address">
-      <bpmn:incoming>Flow_0w5de3e</bpmn:incoming>
-      <bpmn:outgoing>Flow_1ctuc2j</bpmn:outgoing>
-    </bpmn:manualTask>
-    <bpmn:intermediateThrowEvent id="Event-notify-ready-to-deliver" name="Notfiy ready to deliver">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="job-notify-ready-to-deliver" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1ctuc2j</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_18w6hea" />
-    </bpmn:intermediateThrowEvent>
     <bpmn:scriptTask id="check-available-offers" name="check available offers">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="CheckAvailableOffers" />
@@ -947,17 +936,6 @@
       <bpmn:outgoing>Flow_1lagm3a</bpmn:outgoing>
       <bpmn:outgoing>Flow_1ngfu33</bpmn:outgoing>
     </bpmn:parallelGateway>
-    <bpmn:manualTask id="move-to-pickup-counter" name="move to pickup counter">
-      <bpmn:incoming>Flow_0z6f8l6</bpmn:incoming>
-      <bpmn:outgoing>Flow_00vrhfu</bpmn:outgoing>
-    </bpmn:manualTask>
-    <bpmn:intermediateThrowEvent id="Event-send-pickup-ready-email" name="send pickup ready email">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="job-send-pickup-ready-email" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_00vrhfu</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1wooiii" />
-    </bpmn:intermediateThrowEvent>
     <bpmn:serviceTask id="update-stock-records" name="update stock records">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="UpdateStockRecords" />
@@ -1264,6 +1242,28 @@
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_0cig1bk" sourceRef="Gateway_1e5jvyb" targetRef="determine-bin-location" />
     <bpmn:sequenceFlow id="Flow_17ow50d" sourceRef="Gateway_1e5jvyb" targetRef="Gateway_0am4980" />
+    <bpmn:manualTask id="deliver-items-to-address" name="deliver items to address">
+      <bpmn:incoming>Flow_0w5de3e</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ctuc2j</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:intermediateThrowEvent id="Event-notify-ready-to-deliver" name="Notfiy ready to deliver">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="job-notify-ready-to-deliver" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ctuc2j</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_18w6hea" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateThrowEvent id="Event-send-pickup-ready-email" name="send pickup ready email">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="job-send-pickup-ready-email" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_00vrhfu</bpmn:incoming>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1wooiii" />
+    </bpmn:intermediateThrowEvent>
+    <bpmn:manualTask id="move-to-pickup-counter" name="move to pickup counter">
+      <bpmn:incoming>Flow_0z6f8l6</bpmn:incoming>
+      <bpmn:outgoing>Flow_00vrhfu</bpmn:outgoing>
+    </bpmn:manualTask>
   </bpmn:process>
   <bpmn:process id="Process_045wbt9" isExecutable="true">
     <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
@@ -2714,15 +2714,6 @@
         <dc:Bounds x="911" y="3675" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_14kpet9" bpmnElement="deliver-items-to-address">
-        <dc:Bounds x="1201" y="3675" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_16yok9s_di" bpmnElement="Event-notify-ready-to-deliver">
-        <dc:Bounds x="1353" y="3697" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="1336" y="3667" width="71" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_1s4gc3r_di" bpmnElement="check-available-offers">
         <dc:Bounds x="621" y="4595" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -2919,6 +2910,15 @@
         <dc:Bounds x="906" y="3240" width="50" height="50" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="891" y="3297" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_14kpet9" bpmnElement="deliver-items-to-address">
+        <dc:Bounds x="1201" y="3750" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_16yok9s_di" bpmnElement="Event-notify-ready-to-deliver">
+        <dc:Bounds x="1353" y="3772" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1336" y="3742" width="71" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1coso2s_di" bpmnElement="Flow_1coso2s">
@@ -3152,12 +3152,6 @@
         <di:waypoint x="931" y="2970" />
         <di:waypoint x="931" y="3030" />
         <di:waypoint x="1201" y="3030" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_183gstt_di" bpmnElement="Flow_183gstt">
-        <di:waypoint x="1301" y="3030" />
-        <di:waypoint x="1550" y="3030" />
-        <di:waypoint x="1550" y="4415" />
-        <di:waypoint x="1771" y="4415" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1fm2wkm_di" bpmnElement="Flow_1fm2wkm">
         <di:waypoint x="1301" y="3165" />
@@ -3447,16 +3441,17 @@
         <di:waypoint x="1076" y="3715" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_18tl80a" bpmnElement="Flow_0w5de3e">
-        <di:waypoint x="1126" y="3715" />
-        <di:waypoint x="1201" y="3715" />
+        <di:waypoint x="1101" y="3740" />
+        <di:waypoint x="1101" y="3790" />
+        <di:waypoint x="1201" y="3790" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0h91dtj" bpmnElement="Flow_1jh9ye8">
         <di:waypoint x="851" y="3715" />
         <di:waypoint x="911" y="3715" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_08x1ovv" bpmnElement="Flow_1ctuc2j">
-        <di:waypoint x="1301" y="3715" />
-        <di:waypoint x="1353" y="3715" />
+        <di:waypoint x="1301" y="3790" />
+        <di:waypoint x="1353" y="3790" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0jcabqo_di" bpmnElement="Flow_0jcabqo">
         <di:waypoint x="721" y="4635" />
@@ -4828,7 +4823,7 @@
         <di:waypoint x="541" y="4113" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_00yyzae_di" bpmnElement="Flow_00yyzae">
-        <di:waypoint x="1371" y="3733" />
+        <di:waypoint x="1371" y="3808" />
         <di:waypoint x="1371" y="5540" />
         <di:waypoint x="3020" y="5540" />
         <di:waypoint x="3020" y="6067" />
