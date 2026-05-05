@@ -37,7 +37,7 @@
     <bpmn:messageFlow id="Flow_0wjmvi4" sourceRef="send-invoice-to-probuild" targetRef="Event-receive-invoice-from-fixpro" />
     <bpmn:messageFlow id="Flow_1p8xdal" sourceRef="conduct-quarterly-review-meeting-with-probuild-operations-manager" targetRef="Event-receive-quarterly-review-meeting-invite" />
     <bpmn:messageFlow id="Flow_16pxy28" sourceRef="send-booking-confirmation-to-customer" targetRef="Participant_03s20yx" />
-    <bpmn:messageFlow id="Flow_1ft7uni" sourceRef="Event_1dea2s7" targetRef="Event_0tz8jej" />
+    <bpmn:messageFlow id="Flow_1ft7uni" name="made supplier e" sourceRef="Event_1dea2s7" targetRef="Event_0tz8jej" />
     <bpmn:textAnnotation id="TextAnnotation_0j0comg">
       <bpmn:text>purchase line</bpmn:text>
     </bpmn:textAnnotation>
@@ -133,8 +133,6 @@
         <bpmn:flowNodeRef>Gateway_1d8mvan</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-discrepancy-logged</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>log-discrepancy-for-auditing-purpose</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>determine-bin-location</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>check-and-inspect-goods</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>verify-supplier-documents</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-receive-delivery-notice-with-shipment-manifest</bpmn:flowNodeRef>
@@ -149,18 +147,24 @@
         <bpmn:flowNodeRef>compare-actual-vs-system-stock</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_17pg2ot</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_1aslg1i</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>update-ims</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-report-to-manager</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1vsn6it</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>tag-tools-as-in-need-of-service</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-notfiy-that-new-tool-checklist-needed</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>determine-bin-location</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_1spt6ya</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1e5jvyb</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0uvh248">
           <bpmn:lane id="Lane_1brzvkt" name="maintanance team">
             <bpmn:flowNodeRef>move-tools-to-service-bay</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_1d8mvan</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>tag-tools-as-in-need-of-service</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event-notfiy-that-new-tool-checklist-needed</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event_1spt6ya</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_09965gk" name="warehouse staff">
             <bpmn:flowNodeRef>Event-tools-available-for-hire</bpmn:flowNodeRef>
@@ -182,10 +186,10 @@
             <bpmn:flowNodeRef>compare-actual-vs-system-stock</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_17pg2ot</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1aslg1i</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>update-ims</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event-report-to-manager</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_1vsn6it</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_0uqi9r8" name="warehouse manager">
             <bpmn:flowNodeRef>Event-notify-tools-are-ready-to-process</bpmn:flowNodeRef>
@@ -197,11 +201,11 @@
             <bpmn:flowNodeRef>Event-receive-discrepancy-report</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event-discrepancy-logged</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>log-discrepancy-for-auditing-purpose</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>determine-bin-location</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>check-and-inspect-goods</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>verify-supplier-documents</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event-receive-delivery-notice-with-shipment-manifest</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>determine-bin-location</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Gateway_1e5jvyb</bpmn:flowNodeRef>
             <bpmn:childLaneSet id="LaneSet_1uhky41" />
           </bpmn:lane>
         </bpmn:childLaneSet>
@@ -676,26 +680,13 @@
       <bpmn:incoming>Flow_092b7zv</bpmn:incoming>
       <bpmn:outgoing>Flow_14xq51k</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:userTask id="determine-bin-location" name="Determine Bin Location">
-      <bpmn:extensionElements>
-        <zeebe:userTask />
-        <zeebe:formDefinition formId="determine-bin-location-form" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1mocl7p</bpmn:incoming>
-      <bpmn:outgoing>Flow_02fbehb</bpmn:outgoing>
-    </bpmn:userTask>
-    <bpmn:exclusiveGateway id="Gateway_0am4980" name="damaged items?">
-      <bpmn:incoming>Flow_1gt8jbs</bpmn:incoming>
-      <bpmn:outgoing>Flow_1mocl7p</bpmn:outgoing>
-      <bpmn:outgoing>Flow_00bh74w</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:userTask id="check-and-inspect-goods" name="Check and Inspect Goods">
       <bpmn:extensionElements>
         <zeebe:userTask />
         <zeebe:formDefinition formId="check-and-inspect-goods-form" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_093euej</bpmn:incoming>
-      <bpmn:outgoing>Flow_1gt8jbs</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1yiukpq</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:userTask id="verify-supplier-documents" name="Verify Supplier Documents">
       <bpmn:extensionElements>
@@ -706,6 +697,7 @@
       <bpmn:outgoing>Flow_093euej</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:intermediateCatchEvent id="Event-receive-delivery-notice-with-shipment-manifest" name="recieve delivery notice with shipment manifest">
+      <bpmn:incoming>Flow_to_supplier_catch</bpmn:incoming>
       <bpmn:outgoing>Flow_1hfpeo5</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_11dmoyd" messageRef="Message_3d9k8o9" />
     </bpmn:intermediateCatchEvent>
@@ -929,9 +921,14 @@
     </bpmn:scriptTask>
     <bpmn:intermediateCatchEvent id="Event-recieve-items-to-be-sent" name="Recieve items to be sent">
       <bpmn:incoming>Flow_00dc0js</bpmn:incoming>
-      <bpmn:outgoing>Flow_1lr2szv</bpmn:outgoing>
+      <bpmn:outgoing>Flow_to_warehouse_split</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0eikvy6" messageRef="Message_3sdli1h" />
     </bpmn:intermediateCatchEvent>
+    <bpmn:parallelGateway id="Gateway_warehouse_split">
+      <bpmn:incoming>Flow_to_warehouse_split</bpmn:incoming>
+      <bpmn:outgoing>Flow_1lr2szv</bpmn:outgoing>
+      <bpmn:outgoing>Flow_to_supplier_catch</bpmn:outgoing>
+    </bpmn:parallelGateway>
     <bpmn:intermediateThrowEvent id="Event-send-items-to-be-sent" name="send items to be sent">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="SendItemsToBeSent" />
@@ -968,7 +965,6 @@
       <bpmn:incoming>Flow_1bpoix1</bpmn:incoming>
       <bpmn:incoming>Flow_1d8bsrr</bpmn:incoming>
       <bpmn:incoming>Flow_0s59agg</bpmn:incoming>
-      <bpmn:incoming>Flow_183gstt</bpmn:incoming>
       <bpmn:outgoing>Flow_19w3cni</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:endEvent id="Event-stock-updated" name="stock updated">
@@ -1004,14 +1000,6 @@
     <bpmn:endEvent id="Event_1aslg1i" name="stock done">
       <bpmn:incoming>Flow_1393c55</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="move-items-to-storage" name="Move Items to Storage">
-      <bpmn:extensionElements>
-        <zeebe:userTask />
-        <zeebe:formDefinition formId="move-items-to-storage-form" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_02fbehb</bpmn:incoming>
-      <bpmn:outgoing>Flow_1d8bsrr</bpmn:outgoing>
-    </bpmn:userTask>
     <bpmn:manualTask id="update-ims" name="Update IMS">
       <bpmn:incoming>Flow_098k46v</bpmn:incoming>
       <bpmn:outgoing>Flow_1bpoix1</bpmn:outgoing>
@@ -1092,7 +1080,7 @@
     <bpmn:sequenceFlow id="Flow_1ylcehq" sourceRef="review-service-reports" targetRef="Event-notify-tools-are-ready-to-process" />
     <bpmn:sequenceFlow id="Flow_07e40rj" sourceRef="Event-receive-service-report" targetRef="review-service-reports" />
     <bpmn:sequenceFlow id="Flow_087pk04" sourceRef="Gateway_1d8mvan" targetRef="tag-tools-as-in-need-of-service" />
-    <bpmn:sequenceFlow id="Flow_183gstt" sourceRef="tag-tools-as-in-need-of-service" targetRef="update-stock-records" />
+    <bpmn:sequenceFlow id="Flow_183gstt" sourceRef="tag-tools-as-in-need-of-service" targetRef="Event-tools-tagged" />
     <bpmn:sequenceFlow id="Flow_1fm2wkm" sourceRef="create-digital-handover-checklist-for-tools" targetRef="Event-give-digital-handover" />
     <bpmn:sequenceFlow id="Flow_0wsem8m" sourceRef="Event-notfiy-that-new-tool-checklist-needed" targetRef="receive-new-tool-checklist-needed" />
     <bpmn:sequenceFlow id="Flow_0krn4jk" sourceRef="receive-new-tool-checklist-needed" targetRef="create-digital-handover-checklist-for-tools" />
@@ -1101,7 +1089,7 @@
     <bpmn:sequenceFlow id="Flow_0bpjh3l" sourceRef="Event-report-to-manager" targetRef="Event-receive-discrepancy-report" />
     <bpmn:sequenceFlow id="Flow_092b7zv" sourceRef="Event-receive-discrepancy-report" targetRef="log-discrepancy-for-auditing-purpose" />
     <bpmn:sequenceFlow id="Flow_00bh74w" name="yes" sourceRef="Gateway_0am4980" targetRef="Gateway_1d8mvan">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolDamaged = true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=quantityRejected &gt; 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0cttr7p" sourceRef="Event-receive-membership-registeration" targetRef="Gateway_1blmybx" />
     <bpmn:sequenceFlow id="Flow_1mchp6y" name="yes" sourceRef="Gateway_1blmybx" targetRef="user-already-in-system">
@@ -1132,11 +1120,10 @@
     <bpmn:sequenceFlow id="Flow_0uk7t4f" sourceRef="Event-receive-authorisation-request-via-portal" targetRef="decide-authorisation-decision" />
     <bpmn:sequenceFlow id="Flow_0u0cr0w" sourceRef="decide-authorisation-decision" targetRef="Event-send-authorisation-decision" />
     <bpmn:sequenceFlow id="Flow_14xq51k" sourceRef="log-discrepancy-for-auditing-purpose" targetRef="Event-discrepancy-logged" />
-    <bpmn:sequenceFlow id="Flow_1mocl7p" name="no" sourceRef="Gateway_0am4980" targetRef="determine-bin-location">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=toolDamaged = false</bpmn:conditionExpression>
+    <bpmn:sequenceFlow id="Flow_1mocl7p" name="no" sourceRef="Gateway_0am4980" targetRef="Event_1spt6ya">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=quantityRejected = 0</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_02fbehb" sourceRef="determine-bin-location" targetRef="move-items-to-storage" />
-    <bpmn:sequenceFlow id="Flow_1gt8jbs" sourceRef="check-and-inspect-goods" targetRef="Gateway_0am4980" />
     <bpmn:sequenceFlow id="Flow_093euej" sourceRef="verify-supplier-documents" targetRef="check-and-inspect-goods" />
     <bpmn:sequenceFlow id="Flow_1hfpeo5" sourceRef="Event-receive-delivery-notice-with-shipment-manifest" targetRef="verify-supplier-documents" />
     <bpmn:sequenceFlow id="Flow_0pztzry" sourceRef="Event-new-purchase-order" targetRef="check-stock-avaliability" />
@@ -1153,7 +1140,9 @@
     <bpmn:sequenceFlow id="Flow_pl2cfm" sourceRef="Event_1dea2s7" targetRef="Event-order-confirmation" />
     <bpmn:sequenceFlow id="Flow_1d9u81t" sourceRef="Event-order-confirmation" targetRef="Event-wait-until-items-delivered" />
     <bpmn:sequenceFlow id="Flow_0xpifdl" sourceRef="Event-wait-until-items-delivered" targetRef="Gateway_0cvy0qe" />
-    <bpmn:sequenceFlow id="Flow_1lr2szv" sourceRef="Event-recieve-items-to-be-sent" targetRef="notify-team-of-new-order" />
+    <bpmn:sequenceFlow id="Flow_1lr2szv" sourceRef="Gateway_warehouse_split" targetRef="notify-team-of-new-order" />
+    <bpmn:sequenceFlow id="Flow_to_warehouse_split" sourceRef="Event-recieve-items-to-be-sent" targetRef="Gateway_warehouse_split" />
+    <bpmn:sequenceFlow id="Flow_to_supplier_catch" sourceRef="Gateway_warehouse_split" targetRef="Event-receive-delivery-notice-with-shipment-manifest" />
     <bpmn:sequenceFlow id="Flow_1c9xzlo" sourceRef="notify-team-of-new-order" targetRef="Gateway_063ewr9" />
     <bpmn:sequenceFlow id="Flow_0iczhvl" sourceRef="Gateway_063ewr9" targetRef="archive-purchase-order" />
     <bpmn:sequenceFlow id="Flow_0a01m66" name="list of items to pack sent" sourceRef="Gateway_063ewr9" targetRef="Gateway_0l59irx" />
@@ -1248,12 +1237,39 @@
       <bpmn:outgoing>Flow_0pztzry</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0tcmuxg" messageRef="Message_1umurbh" />
     </bpmn:startEvent>
+    <bpmn:manualTask id="determine-bin-location" name="Determine Bin Location">
+      <bpmn:incoming>Flow_0cig1bk</bpmn:incoming>
+      <bpmn:outgoing>Flow_02fbehb</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:manualTask id="move-items-to-storage" name="Move Items to Storage">
+      <bpmn:incoming>Flow_02fbehb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1d8bsrr</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:exclusiveGateway id="Gateway_0am4980" name="damaged items?">
+      <bpmn:incoming>Flow_17ow50d</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mocl7p</bpmn:outgoing>
+      <bpmn:outgoing>Flow_00bh74w</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="Event_1spt6ya">
+      <bpmn:incoming>Flow_1mocl7p</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event-tools-tagged" name="tools tagged for service">
+      <bpmn:incoming>Flow_183gstt</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1yiukpq" sourceRef="check-and-inspect-goods" targetRef="Gateway_1e5jvyb" />
+    <bpmn:parallelGateway id="Gateway_1e5jvyb" name="working and non working split">
+      <bpmn:incoming>Flow_1yiukpq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0cig1bk</bpmn:outgoing>
+      <bpmn:outgoing>Flow_17ow50d</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0cig1bk" sourceRef="Gateway_1e5jvyb" targetRef="determine-bin-location" />
+    <bpmn:sequenceFlow id="Flow_17ow50d" sourceRef="Gateway_1e5jvyb" targetRef="Gateway_0am4980" />
   </bpmn:process>
-  <bpmn:process id="Process_045wbt9" isExecutable="false">
-    <bpmn:intermediateCatchEvent id="Event_0tz8jej">
+  <bpmn:process id="Process_045wbt9" isExecutable="true">
+    <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
       <bpmn:outgoing>Flow_0nw0jj4</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0zv1zlm" />
-    </bpmn:intermediateCatchEvent>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0zv1zlm" messageRef="Message_supplier_receives_po" />
+    </bpmn:startEvent>
     <bpmn:manualTask id="deliver-goods" name="deliver goods">
       <bpmn:incoming>Flow_0nw0jj4</bpmn:incoming>
       <bpmn:outgoing>Flow_0pvjlea</bpmn:outgoing>
@@ -1263,7 +1279,7 @@
         <zeebe:taskDefinition type="job-send-invoice-and-shipping-manifest" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_07fqvzf</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_03ovftw" />
+      <bpmn:messageEventDefinition id="MessageEventDefinition_03ovftw" messageRef="Message_3d9k8o9" />
     </bpmn:intermediateThrowEvent>
     <bpmn:parallelGateway id="Gateway_1b2qiu8">
       <bpmn:incoming>Flow_0pvjlea</bpmn:incoming>
@@ -1274,10 +1290,9 @@
     <bpmn:sequenceFlow id="Flow_0pvjlea" sourceRef="deliver-goods" targetRef="Gateway_1b2qiu8" />
     <bpmn:sequenceFlow id="Flow_07fqvzf" sourceRef="Gateway_1b2qiu8" targetRef="Event-send-invoice-and-shipping-manifest" />
     <bpmn:sequenceFlow id="Flow_09erkxn" sourceRef="Gateway_1b2qiu8" targetRef="Event_1iae3j5" />
-    <bpmn:intermediateThrowEvent id="Event_1iae3j5" name="confirm delivered">
+    <bpmn:endEvent id="Event_1iae3j5" name="confirm delivered">
       <bpmn:incoming>Flow_09erkxn</bpmn:incoming>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0gwofjh" />
-    </bpmn:intermediateThrowEvent>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:process id="Process_0dgdvml" isExecutable="false">
     <bpmn:exclusiveGateway id="Gateway_1fsfv2o">
@@ -2121,7 +2136,7 @@
   </bpmn:message>
   <bpmn:message id="Message_1tcvpkq" name="Message-receive-new-tool-checklist-needed">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=toolChecklistId" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_26rh36i" name="Message-receive-service-report">
@@ -2152,6 +2167,11 @@
   <bpmn:message id="Message_099kaql" name="Message-recieve-location-to-deliver">
     <bpmn:extensionElements>
       <zeebe:subscription correlationKey="=deliveryLocation" />
+    </bpmn:extensionElements>
+  </bpmn:message>
+  <bpmn:message id="Message_supplier_receives_po" name="Message-supplier-receives-po">
+    <bpmn:extensionElements>
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_1umurbh" name="Message-new-purchase-order">
@@ -2596,16 +2616,6 @@
       <bpmndi:BPMNShape id="Activity_0v6i25a_di" bpmnElement="log-discrepancy-for-auditing-purpose">
         <dc:Bounds x="1791" y="3225" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0g6z50k" bpmnElement="determine-bin-location">
-        <dc:Bounds x="1121" y="3225" width="100" height="80" />
-        <bpmndi:BPMNLabel />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0am4980_di" bpmnElement="Gateway_0am4980" isMarkerVisible="true">
-        <dc:Bounds x="916" y="3240" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="900" y="3297" width="82" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1w668mi" bpmnElement="check-and-inspect-goods">
         <dc:Bounds x="751" y="3225" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -2849,9 +2859,6 @@
           <dc:Bounds x="2144" y="3590" width="54" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_14bvrmp" bpmnElement="move-items-to-storage">
-        <dc:Bounds x="1561" y="3515" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_04zvxs8_di" bpmnElement="update-ims">
         <dc:Bounds x="2221" y="3525" width="100" height="80" />
         <bpmndi:BPMNLabel />
@@ -2891,6 +2898,27 @@
         <dc:Bounds x="523" y="4077" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="507" y="4047" width="71" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0e6692v_di" bpmnElement="determine-bin-location">
+        <dc:Bounds x="1121" y="3225" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_06gf3ao_di" bpmnElement="move-items-to-storage">
+        <dc:Bounds x="1561" y="3515" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0am4980_di" bpmnElement="Gateway_0am4980" isMarkerVisible="true">
+        <dc:Bounds x="756" y="3035" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="664" y="3053" width="82" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1spt6ya_di" bpmnElement="Event_1spt6ya">
+        <dc:Bounds x="912" y="3042" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0wyyzd0_di" bpmnElement="Gateway_1e5jvyb">
+        <dc:Bounds x="906" y="3240" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="891" y="3297" width="81" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1coso2s_di" bpmnElement="Flow_1coso2s">
@@ -3165,13 +3193,11 @@
         <di:waypoint x="1791" y="3265" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_00bh74w_di" bpmnElement="Flow_00bh74w">
-        <di:waypoint x="941" y="3240" />
-        <di:waypoint x="941" y="3105" />
-        <di:waypoint x="690" y="3105" />
-        <di:waypoint x="690" y="2945" />
+        <di:waypoint x="781" y="3035" />
+        <di:waypoint x="781" y="2945" />
         <di:waypoint x="906" y="2945" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="947" y="3183" width="18" height="14" />
+          <dc:Bounds x="759" y="3013" width="18" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0cttr7p_di" bpmnElement="Flow_0cttr7p">
@@ -3281,20 +3307,16 @@
         <di:waypoint x="1953" y="3265" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1mocl7p_di" bpmnElement="Flow_1mocl7p">
-        <di:waypoint x="966" y="3265" />
-        <di:waypoint x="1121" y="3265" />
+        <di:waypoint x="806" y="3060" />
+        <di:waypoint x="912" y="3060" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="967" y="3248" width="13" height="14" />
+          <dc:Bounds x="804" y="3043" width="13" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_02fbehb_di" bpmnElement="Flow_02fbehb">
         <di:waypoint x="1221" y="3265" />
         <di:waypoint x="1611" y="3265" />
         <di:waypoint x="1611" y="3515" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1gt8jbs_di" bpmnElement="Flow_1gt8jbs">
-        <di:waypoint x="851" y="3265" />
-        <di:waypoint x="916" y="3265" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_08739bk" bpmnElement="Flow_093euej">
         <di:waypoint x="721" y="3265" />
@@ -3350,10 +3372,6 @@
         <di:waypoint x="1351" y="4377" />
         <di:waypoint x="1351" y="4355" />
         <di:waypoint x="1246" y="4355" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_0r41n2p" bpmnElement="Flow_1lr2szv">
-        <di:waypoint x="889" y="4095" />
-        <di:waypoint x="941" y="4095" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_0hwiitj" bpmnElement="Flow_1c9xzlo">
         <di:waypoint x="1041" y="4095" />
@@ -3586,6 +3604,20 @@
         <di:waypoint x="2325" y="3475" />
         <di:waypoint x="2325" y="3495" />
         <di:waypoint x="2373" y="3495" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1yiukpq_di" bpmnElement="Flow_1yiukpq">
+        <di:waypoint x="851" y="3265" />
+        <di:waypoint x="906" y="3265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0cig1bk_di" bpmnElement="Flow_0cig1bk">
+        <di:waypoint x="956" y="3265" />
+        <di:waypoint x="1121" y="3265" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17ow50d_di" bpmnElement="Flow_17ow50d">
+        <di:waypoint x="931" y="3240" />
+        <di:waypoint x="931" y="3150" />
+        <di:waypoint x="781" y="3150" />
+        <di:waypoint x="781" y="3085" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0wqowl0_di" bpmnElement="Participant_0wqowl0" isHorizontal="true">
         <dc:Bounds x="420" y="5660" width="1150" height="268" />
@@ -4920,6 +4952,9 @@
         <di:waypoint x="1141" y="5123" />
         <di:waypoint x="510" y="5123" />
         <di:waypoint x="510" y="5722" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="786" y="5105" width="79" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Association_1vr9dtq_di" bpmnElement="Association_1vr9dtq">
         <di:waypoint x="1512" y="5680" />
