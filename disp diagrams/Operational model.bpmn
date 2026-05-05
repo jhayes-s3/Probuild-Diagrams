@@ -723,11 +723,6 @@
       <bpmn:incoming>Flow_0a3xsaa</bpmn:incoming>
       <bpmn:outgoing>Flow_0a9bkzn</bpmn:outgoing>
     </bpmn:scriptTask>
-    <bpmn:intermediateCatchEvent id="Event-recieve-items-to-be-sent" name="Recieve items to be sent">
-      <bpmn:incoming>Flow_00dc0js</bpmn:incoming>
-      <bpmn:outgoing>Flow_to_warehouse_split</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_0eikvy6" messageRef="Message_3sdli1h" />
-    </bpmn:intermediateCatchEvent>
     <bpmn:intermediateThrowEvent id="Event-send-items-to-be-sent" name="send items to be sent">
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="SendItemsToBeSent" />
@@ -1037,6 +1032,11 @@
       <bpmn:outgoing>Flow_152arob</bpmn:outgoing>
     </bpmn:eventBasedGateway>
     <bpmn:sequenceFlow id="Flow_084rf0u" sourceRef="Event_07h08rb" targetRef="check-and-inspect-goods" />
+    <bpmn:intermediateCatchEvent id="Event-recieve-items-to-be-sent" name="Recieve items to be sent">
+      <bpmn:incoming>Flow_00dc0js</bpmn:incoming>
+      <bpmn:outgoing>Flow_to_warehouse_split</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0eikvy6" messageRef="Message_3sdli1h" />
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:process id="Process_045wbt9" isExecutable="true">
     <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
@@ -2033,51 +2033,51 @@
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0naonu7">
       <bpmndi:BPMNShape id="BPMNShape_1hxxano" bpmnElement="Participant_0vyzakc" isHorizontal="true">
-        <dc:Bounds x="591" y="2380" width="3268" height="2685" />
+        <dc:Bounds x="591" y="2380" width="2559" height="2685" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_055t06k_di" bpmnElement="Lane_055t06k" isHorizontal="true">
-        <dc:Bounds x="621" y="4873" width="3238" height="192" />
+        <dc:Bounds x="621" y="4873" width="2529" height="192" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1f3cw8s_di" bpmnElement="Lane_1f3cw8s" isHorizontal="true">
-        <dc:Bounds x="621" y="4555" width="3238" height="318" />
+        <dc:Bounds x="621" y="4555" width="2529" height="318" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1qkvpp8" bpmnElement="Lane_17zhgoa" isHorizontal="true">
-        <dc:Bounds x="621" y="3615" width="3238" height="260" />
+        <dc:Bounds x="621" y="3615" width="2529" height="260" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1fobeye" bpmnElement="Lane_121zxf9" isHorizontal="true">
-        <dc:Bounds x="621" y="2885" width="3238" height="730" />
+        <dc:Bounds x="621" y="2885" width="2529" height="730" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0uqi9r8_di" bpmnElement="Lane_0uqi9r8" isHorizontal="true">
-        <dc:Bounds x="651" y="3115" width="3208" height="210" />
+        <dc:Bounds x="651" y="3115" width="2499" height="210" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_09965gk_di" bpmnElement="Lane_09965gk" isHorizontal="true">
-        <dc:Bounds x="651" y="3325" width="3208" height="290" />
+        <dc:Bounds x="651" y="3325" width="2499" height="290" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1brzvkt_di" bpmnElement="Lane_1brzvkt" isHorizontal="true">
-        <dc:Bounds x="651" y="2885" width="3208" height="230" />
+        <dc:Bounds x="651" y="2885" width="2499" height="230" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0kjmxzk" bpmnElement="Lane_0i0xy8k" isHorizontal="true">
-        <dc:Bounds x="621" y="3875" width="3238" height="390" />
+        <dc:Bounds x="621" y="3875" width="2529" height="390" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_1mok5cp" bpmnElement="Lane_0zwdkw4" isHorizontal="true">
-        <dc:Bounds x="621" y="4265" width="3238" height="290" />
+        <dc:Bounds x="621" y="4265" width="2529" height="290" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0zi4ld2_di" bpmnElement="Lane_0zi4ld2" isHorizontal="true">
-        <dc:Bounds x="621" y="2505" width="3238" height="380" />
+        <dc:Bounds x="621" y="2505" width="2529" height="380" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_18k7gak_di" bpmnElement="Lane_18k7gak" isHorizontal="true">
-        <dc:Bounds x="621" y="2380" width="3238" height="125" />
+        <dc:Bounds x="621" y="2380" width="2529" height="125" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_16q3dp3_di" bpmnElement="Event-tools-available-for-hire">
@@ -2332,7 +2332,7 @@
       <bpmndi:BPMNShape id="BPMNShape_03uotdc" bpmnElement="Event-order-confirmation">
         <dc:Bounds x="1393" y="4377" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1366" y="4353" width="89" height="14" />
+          <dc:Bounds x="1356" y="4363" width="89" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0lb61hv" bpmnElement="Event-wait-until-items-delivered">
