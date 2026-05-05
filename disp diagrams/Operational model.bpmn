@@ -977,7 +977,7 @@
     <bpmn:startEvent id="Event_04vrn6g">
       <bpmn:outgoing>Flow_0ocu5me</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_049u5za">
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R/P10Y</bpmn:timeCycle>
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">R1/P10Y</bpmn:timeCycle>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
     <bpmn:userTask id="count-stock-items" name="Count Stock Items">
