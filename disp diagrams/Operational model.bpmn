@@ -754,7 +754,7 @@
     </bpmn:intermediateThrowEvent>
     <bpmn:serviceTask id="update-stock-records" name="update stock records">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="UpdateStockRecords" />
+        <zeebe:taskDefinition type="job-update-stock" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1bpoix1</bpmn:incoming>
       <bpmn:incoming>Flow_1d8bsrr</bpmn:incoming>
