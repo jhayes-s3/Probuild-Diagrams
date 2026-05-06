@@ -1,0 +1,395 @@
+{
+  "components": [
+    {
+      "text": "### Booking Details",
+      "type": "text",
+      "id": "Heading_booking_details",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Customer Information",
+      "type": "text",
+      "id": "Heading_customer_info",
+      "layout": {
+        "row": "row_3",
+        "col": 16
+      }
+    },
+    {
+      "label": "Customer Name",
+      "type": "textfield",
+      "id": "Field_customerName",
+      "key": "customerName",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_4",
+        "col": 8
+      }
+    },
+    {
+      "label": "Customer ID / Account Number",
+      "type": "textfield",
+      "id": "Field_customerID",
+      "key": "customerID",
+      "layout": {
+        "row": "row_4",
+        "col": 8
+      }
+    },
+    {
+      "label": "Contact Email Address",
+      "type": "textfield",
+      "id": "Field_contactEmail",
+      "key": "contactEmail",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_5",
+        "col": 8
+      }
+    },
+    {
+      "label": "Contact Phone Number",
+      "type": "textfield",
+      "id": "Field_contactPhone",
+      "key": "contactPhone",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_5",
+        "col": 8
+      }
+    },
+    {
+      "text": "### Tool Information",
+      "type": "text",
+      "id": "Heading_tool_info",
+      "layout": {
+        "row": "row_6",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Name / Description",
+      "type": "textfield",
+      "id": "Field_toolName",
+      "key": "toolName",
+      "layout": {
+        "row": "row_7",
+        "col": 8
+      },
+      "readonly": true
+    },
+    {
+      "label": "Quantity Booked",
+      "type": "number",
+      "id": "Field_quantityBooked",
+      "key": "toolQuantity",
+      "defaultValue": 1,
+      "layout": {
+        "row": "row_7",
+        "col": 4
+      },
+      "readonly": true
+    },
+    {
+      "text": "### Rental Period",
+      "type": "text",
+      "id": "Heading_rental_period",
+      "layout": {
+        "row": "row_8",
+        "col": 16
+      }
+    },
+    {
+      "subtype": "datetime",
+      "type": "datetime",
+      "id": "Field_rentalStart",
+      "key": "rentalStart",
+      "dateLabel": "Rental Start Date",
+      "timeLabel": "Time",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_9",
+        "col": 8
+      },
+      "timeInterval": 15,
+      "readonly": true
+    },
+    {
+      "subtype": "datetime",
+      "type": "datetime",
+      "id": "Field_rentalEnd",
+      "key": "rentalEnd",
+      "dateLabel": "Rental End Date",
+      "timeLabel": "Time",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_9",
+        "col": 8
+      },
+      "timeInterval": 15,
+      "readonly": true
+    },
+    {
+      "text": "### Location & Logistics",
+      "type": "text",
+      "id": "Heading_logistics",
+      "layout": {
+        "row": "row_11",
+        "col": 16
+      }
+    },
+    {
+      "label": "Pickup/Delivery Method",
+      "values": [
+        {
+          "label": "Customer Pickup",
+          "value": "pickup"
+        },
+        {
+          "label": "Site Delivery",
+          "value": "delivery"
+        }
+      ],
+      "type": "select",
+      "id": "Field_deliveryMethod",
+      "key": "deliveryMethod",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_12",
+        "col": 8
+      }
+    },
+    {
+      "label": "Pickup/Return Location Address",
+      "type": "textarea",
+      "id": "Field_pickupReturnAddress",
+      "key": "pickupReturnAddress",
+      "layout": {
+        "row": "row_13",
+        "col": 16
+      }
+    },
+    {
+      "label": "Delivery Address (if applicable)",
+      "type": "textarea",
+      "id": "Field_deliveryAddress",
+      "key": "deliveryAddress",
+      "layout": {
+        "row": "row_14",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Cost Summary",
+      "type": "text",
+      "id": "Heading_cost_summary",
+      "layout": {
+        "row": "row_16",
+        "col": 16
+      }
+    },
+    {
+      "label": "Rental Rate (per hour/day)",
+      "type": "number",
+      "id": "Field_rentalRate",
+      "key": "rentalRate",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_17",
+        "col": 8
+      },
+      "readonly": true
+    },
+    {
+      "label": "Deposit Required",
+      "type": "number",
+      "id": "Field_depositRequired",
+      "key": "depositRequired",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_17",
+        "col": 8
+      },
+      "readonly": true
+    },
+    {
+      "label": "Taxes",
+      "type": "number",
+      "id": "Field_taxes",
+      "key": "taxes",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_18",
+        "col": 8
+      },
+      "readonly": true
+    },
+    {
+      "label": "Any Additional Fees",
+      "type": "number",
+      "id": "Field_additionalFees",
+      "key": "additionalFees",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_18",
+        "col": 8
+      },
+      "readonly": true
+    },
+    {
+      "label": "Total Cost",
+      "type": "number",
+      "id": "Field_totalCost",
+      "key": "totalCost",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_19",
+        "col": 5
+      },
+      "readonly": true
+    },
+    {
+      "label": "Amount Paid",
+      "type": "number",
+      "id": "Field_amountPaid",
+      "key": "amountPaid",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_19",
+        "col": 5
+      },
+      "readonly": true
+    },
+    {
+      "label": "Balance Due",
+      "type": "number",
+      "id": "Field_balanceDue",
+      "key": "balanceDue",
+      "appearance": {
+        "prefixAdorner": "$"
+      },
+      "decimalDigits": 2,
+      "layout": {
+        "row": "row_19",
+        "col": 6
+      },
+      "readonly": true
+    },
+    {
+      "text": "### Terms & Conditions",
+      "type": "text",
+      "id": "Heading_terms",
+      "layout": {
+        "row": "row_20",
+        "col": 16
+      }
+    },
+    {
+      "text": "View the [Rental Agreement](https://example.com/rental-agreement) for full terms.",
+      "type": "text",
+      "id": "Para_rentalAgreement",
+      "layout": {
+        "row": "row_21",
+        "col": 16
+      }
+    },
+    {
+      "text": "**Cancellation Policy:** Full refund if cancelled 48 hours prior to rental start. 50% refund if cancelled within 48 hours. No refund for cancellations within 24 hours.",
+      "type": "text",
+      "id": "Para_cancellationPolicy",
+      "layout": {
+        "row": "row_22",
+        "col": 16
+      }
+    },
+    {
+      "text": "**Late Return Policy:** A fee of $50 per hour will be charged for late returns.",
+      "type": "text",
+      "id": "Para_lateReturnPolicy",
+      "layout": {
+        "row": "row_23",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Next Steps",
+      "type": "text",
+      "id": "Heading_next_steps",
+      "layout": {
+        "row": "row_24",
+        "col": 16
+      }
+    },
+    {
+      "text": "Please bring a valid ID and the credit card used for the booking to the pickup location.",
+      "type": "text",
+      "id": "Para_customerInstructions",
+      "layout": {
+        "row": "row_25",
+        "col": 16
+      }
+    },
+    {
+      "text": "For any questions, please contact Jane Doe at (555) 123-4567.",
+      "type": "text",
+      "id": "Para_contactPerson",
+      "layout": {
+        "row": "row_26",
+        "col": 16
+      }
+    },
+    {
+      "label": "Confirm Booking",
+      "action": "submit",
+      "type": "button",
+      "id": "Button_submit",
+      "layout": {
+        "row": "row_27",
+        "col": 16
+      }
+    }
+  ],
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Modeler",
+    "version": "5.44.0"
+  },
+  "schemaVersion": 19,
+  "id": "confirm-booking-with-customer-form",
+  "generated": true,
+  "type": "default"
+}

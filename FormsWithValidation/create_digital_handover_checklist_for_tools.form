@@ -1,0 +1,559 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "35a6d3d"
+  },
+  "schemaVersion": 19,
+  "id": "create-digital-handover-checklist-for-tools-form",
+  "components": [
+    {
+      "text": "### Tool Handover Form",
+      "type": "text",
+      "id": "Heading_tool_handover",
+      "layout": {
+        "row": "row_0",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Tool Identification",
+      "type": "text",
+      "id": "Subheading_tool_id",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Name",
+      "type": "textfield",
+      "id": "Field_toolName",
+      "key": "toolName",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Tool ID / Asset Tag",
+      "type": "textfield",
+      "id": "Field_toolId",
+      "key": "toolId",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z0-9\\-]+$"
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Serial Number",
+      "type": "textfield",
+      "id": "Field_serialNumber",
+      "key": "serialNumber",
+      "layout": {
+        "row": "row_3",
+        "col": 8
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "label": "Tool Category",
+      "values": [
+        {
+          "label": "Power Tool",
+          "value": "powerTool"
+        },
+        {
+          "label": "Hand Tool",
+          "value": "handTool"
+        },
+        {
+          "label": "Measuring Device",
+          "value": "measuringDevice"
+        },
+        {
+          "label": "IT Equipment",
+          "value": "itEquipment"
+        },
+        {
+          "label": "Other",
+          "value": "other"
+        }
+      ],
+      "type": "select",
+      "id": "Field_toolCategory",
+      "key": "toolCategory",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_3",
+        "col": 8
+      }
+    },
+    {
+      "label": "Manufacturer",
+      "type": "textfield",
+      "id": "Field_manufacturer",
+      "key": "manufacturer",
+      "layout": {
+        "row": "row_4",
+        "col": 8
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "label": "Model",
+      "type": "textfield",
+      "id": "Field_model",
+      "key": "model",
+      "layout": {
+        "row": "row_4",
+        "col": 8
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "text": "##### Handover Details",
+      "type": "text",
+      "id": "Subheading_handover_details",
+      "layout": {
+        "row": "row_5",
+        "col": 16
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_handoverDate",
+      "key": "handoverDate",
+      "dateLabel": "Handover Date",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_6",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "time",
+      "type": "datetime",
+      "id": "Field_handoverTime",
+      "key": "handoverTime",
+      "timeLabel": "Handover Time",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_6",
+        "col": 8
+      },
+      "timeInterval": 15
+    },
+    {
+      "label": "Handover From (Name)",
+      "type": "textfield",
+      "id": "Field_handoverFromName",
+      "key": "handoverFromName",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_7",
+        "col": 8
+      }
+    },
+    {
+      "label": "Handover From (Employee ID)",
+      "type": "textfield",
+      "id": "Field_handoverFromId",
+      "key": "handoverFromId",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_7",
+        "col": 8
+      }
+    },
+    {
+      "label": "Handover To (Name)",
+      "type": "textfield",
+      "id": "Field_handoverToName",
+      "key": "handoverToName",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_8",
+        "col": 8
+      }
+    },
+    {
+      "label": "Handover To (Employee ID)",
+      "type": "textfield",
+      "id": "Field_handoverToId",
+      "key": "handoverToId",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_8",
+        "col": 8
+      }
+    },
+    {
+      "label": "Project/Department Association",
+      "type": "textfield",
+      "id": "Field_projectDepartment",
+      "key": "projectDepartment",
+      "layout": {
+        "row": "row_9",
+        "col": 16
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "text": "##### Condition Assessment",
+      "type": "text",
+      "id": "Subheading_condition",
+      "layout": {
+        "row": "row_10",
+        "col": 16
+      }
+    },
+    {
+      "label": "Visual Inspection",
+      "values": [
+        {
+          "label": "No Damage",
+          "value": "noDamage"
+        },
+        {
+          "label": "Minor Wear",
+          "value": "minorWear"
+        },
+        {
+          "label": "Damaged",
+          "value": "damaged"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_visualInspection",
+      "key": "visualInspection",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 16
+      }
+    },
+    {
+      "label": "Functional Test",
+      "values": [
+        {
+          "label": "Passed",
+          "value": "passed"
+        },
+        {
+          "label": "Failed",
+          "value": "failed"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_functionalTest",
+      "key": "functionalTest",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_12",
+        "col": 16
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_lastMaintenance",
+      "key": "lastMaintenanceDate",
+      "dateLabel": "Last Maintenance Date",
+      "layout": {
+        "row": "row_13",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_nextMaintenance",
+      "key": "nextMaintenanceDate",
+      "dateLabel": "Next Maintenance Due",
+      "layout": {
+        "row": "row_13",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_lastCalibration",
+      "key": "lastCalibrationDate",
+      "dateLabel": "Last Calibration Date",
+      "layout": {
+        "row": "row_14",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_nextCalibration",
+      "key": "nextCalibrationDate",
+      "dateLabel": "Next Calibration Due",
+      "layout": {
+        "row": "row_14",
+        "col": 8
+      }
+    },
+    {
+      "label": "Condition Notes",
+      "type": "textarea",
+      "id": "Field_conditionNotes",
+      "key": "conditionNotes",
+      "layout": {
+        "row": "row_15",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Included Items Checklist",
+      "type": "text",
+      "id": "Subheading_included_items",
+      "layout": {
+        "row": "row_16",
+        "col": 16
+      }
+    },
+    {
+      "label": "Carrying Case",
+      "type": "checkbox",
+      "id": "Field_carryingCase",
+      "key": "hasCarryingCase",
+      "layout": {
+        "row": "row_17",
+        "col": 8
+      }
+    },
+    {
+      "label": "Power Cord / Charger",
+      "type": "checkbox",
+      "id": "Field_powerCord",
+      "key": "hasPowerCord",
+      "layout": {
+        "row": "row_17",
+        "col": 8
+      }
+    },
+    {
+      "label": "User Manual",
+      "type": "checkbox",
+      "id": "Field_userManual",
+      "key": "hasUserManual",
+      "layout": {
+        "row": "row_18",
+        "col": 8
+      }
+    },
+    {
+      "label": "Safety Guard",
+      "type": "checkbox",
+      "id": "Field_safetyGuard",
+      "key": "hasSafetyGuard",
+      "layout": {
+        "row": "row_18",
+        "col": 8
+      }
+    },
+    {
+      "label": "Batteries (Quantity)",
+      "type": "number",
+      "id": "Field_batteryQty",
+      "key": "batteryQty",
+      "defaultValue": 0,
+      "layout": {
+        "row": "row_19",
+        "col": 16
+      },
+      "validate": {
+        "min": 0
+      }
+    },
+    {
+      "label": "Blades / Bits / Attachments (List and Quantity)",
+      "type": "textarea",
+      "id": "Field_attachments",
+      "key": "attachmentsList",
+      "layout": {
+        "row": "row_20",
+        "col": 16
+      }
+    },
+    {
+      "label": "Other Accessories (Specify)",
+      "type": "textarea",
+      "id": "Field_otherAccessories",
+      "key": "otherAccessories",
+      "layout": {
+        "row": "row_21",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Software & Access",
+      "type": "text",
+      "id": "Subheading_software",
+      "layout": {
+        "row": "row_22",
+        "col": 16
+      }
+    },
+    {
+      "label": "Associated Software Name",
+      "type": "textfield",
+      "id": "Field_softwareName",
+      "key": "softwareName",
+      "layout": {
+        "row": "row_23",
+        "col": 8
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "label": "Software Version",
+      "type": "textfield",
+      "id": "Field_softwareVersion",
+      "key": "softwareVersion",
+      "layout": {
+        "row": "row_23",
+        "col": 8
+      },
+      "validate": {
+        "maxLength": 255
+      }
+    },
+    {
+      "label": "Login Credentials Provided",
+      "values": [
+        {
+          "label": "Yes",
+          "value": "yes"
+        },
+        {
+          "label": "No",
+          "value": "no"
+        }
+      ],
+      "type": "radio",
+      "id": "Field_loginProvided",
+      "key": "loginProvided",
+      "layout": {
+        "row": "row_24",
+        "col": 16
+      }
+    },
+    {
+      "text": "##### Acknowledgement",
+      "type": "text",
+      "id": "Subheading_acknowledgement",
+      "layout": {
+        "row": "row_25",
+        "col": 16
+      }
+    },
+    {
+      "label": "Receiver's Comments",
+      "type": "textarea",
+      "id": "Field_receiverComments",
+      "key": "receiverComments",
+      "layout": {
+        "row": "row_26",
+        "col": 16
+      }
+    },
+    {
+      "label": "Handover Person's Name (as signature)",
+      "type": "textfield",
+      "id": "Field_handoverPersonSignature",
+      "key": "handoverPersonSignature",
+      "description": "Type your full name to sign.",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100
+      },
+      "layout": {
+        "row": "row_27",
+        "col": 8
+      }
+    },
+    {
+      "label": "Receiver's Name (as signature)",
+      "type": "textfield",
+      "id": "Field_receiverSignature",
+      "key": "receiverSignature",
+      "description": "Type your full name to sign.",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100
+      },
+      "layout": {
+        "row": "row_27",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "date",
+      "type": "datetime",
+      "id": "Field_signatureDate",
+      "key": "signatureDate",
+      "dateLabel": "Date of Signature",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_28",
+        "col": 16
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

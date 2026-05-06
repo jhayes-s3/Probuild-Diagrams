@@ -1,0 +1,187 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "35a6d3d"
+  },
+  "schemaVersion": 19,
+  "id": "check-tool-availability-in-store-form",
+  "components": [
+    {
+      "text": "### Tool Information",
+      "type": "text",
+      "id": "Field_0v1n2p3",
+      "layout": {
+        "row": "row-1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Name / Keyword",
+      "type": "textfield",
+      "id": "Field_1a2b3c4",
+      "key": "toolName",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row-2",
+        "col": 8
+      }
+    },
+    {
+      "label": "SKU / Item Number",
+      "type": "textfield",
+      "id": "Field_5d6e7f8",
+      "key": "skuNumber",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z0-9\\-]+$"
+      },
+      "layout": {
+        "row": "row-2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Brand",
+      "type": "textfield",
+      "id": "Field_9g0h1i2",
+      "key": "brand",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row-3",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Store Selection",
+      "type": "text",
+      "id": "Field_3j4k5l6",
+      "layout": {
+        "row": "row-4",
+        "col": 16
+      }
+    },
+    {
+      "label": "Use Current Location",
+      "type": "checkbox",
+      "id": "Field_1x2y3z4",
+      "key": "useCurrentLocation",
+      "layout": {
+        "row": "row-5",
+        "col": 16
+      }
+    },
+    {
+      "label": "ZIP Code",
+      "type": "textfield",
+      "id": "Field_7m8n9o0",
+      "key": "zipCode",
+      "validate": {
+        "required": true,
+        "pattern": "^\\d{5}(\\-\\d{4})?$",
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row-6",
+        "col": 4
+      }
+    },
+    {
+      "label": "City",
+      "type": "textfield",
+      "id": "Field_1p2q3r4",
+      "key": "city",
+      "validate": {
+        "required": true,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z\\s\\-']+$"
+      },
+      "layout": {
+        "row": "row-6",
+        "col": 6
+      }
+    },
+    {
+      "label": "State",
+      "type": "textfield",
+      "id": "Field_5s6t7u8",
+      "key": "state",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 2,
+        "pattern": "^[A-Z]{2}$"
+      },
+      "layout": {
+        "row": "row-6",
+        "col": 6
+      }
+    },
+    {
+      "label": "Search Radius",
+      "type": "number",
+      "id": "Field_9v0w1x2",
+      "key": "searchRadius",
+      "description": "in miles",
+      "defaultValue": 25,
+      "validate": {
+        "required": true,
+        "min": 1,
+        "max": 100
+      },
+      "layout": {
+        "row": "row-7",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Optional Fields",
+      "type": "text",
+      "id": "Field_3y4z5a6",
+      "layout": {
+        "row": "row-8",
+        "col": 16
+      }
+    },
+    {
+      "label": "Quantity Needed",
+      "type": "number",
+      "id": "Field_7b8c9d0",
+      "key": "quantityNeeded",
+      "defaultValue": 1,
+      "validate": {
+        "min": 1
+      },
+      "layout": {
+        "row": "row-9",
+        "col": 8
+      }
+    },
+    {
+      "label": "Email for stock notification",
+      "type": "textfield",
+      "id": "Field_1e2f3g4",
+      "key": "notificationEmail",
+      "description": "e.g. name@example.com",
+      "layout": {
+        "row": "row-9",
+        "col": 8
+      },
+      "validate": {
+        "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$",
+        "maxLength": 255
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}

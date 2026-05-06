@@ -1,0 +1,263 @@
+{
+  "executionPlatform": "Camunda Cloud",
+  "executionPlatformVersion": "8.9.0",
+  "exporter": {
+    "name": "Camunda Web Modeler",
+    "version": "35a6d3d"
+  },
+  "schemaVersion": 19,
+  "id": "enter-tools-back-into-stock-form",
+  "components": [
+    {
+      "text": "### Tool Information",
+      "type": "text",
+      "id": "Heading_tool_info",
+      "layout": {
+        "row": "row_1",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool ID / Asset Number",
+      "type": "textfield",
+      "id": "Field_toolId",
+      "key": "toolId",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z0-9\\-]+$"
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Tool Name",
+      "type": "textfield",
+      "id": "Field_toolName",
+      "key": "toolName",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_2",
+        "col": 8
+      }
+    },
+    {
+      "label": "Tool Description",
+      "type": "textarea",
+      "id": "Field_toolDescription",
+      "key": "toolDescription",
+      "layout": {
+        "row": "row_3",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Return Details",
+      "type": "text",
+      "id": "Heading_return_details",
+      "layout": {
+        "row": "row_4",
+        "col": 16
+      }
+    },
+    {
+      "label": "Employee Name (returning the tool)",
+      "type": "textfield",
+      "id": "Field_employeeName",
+      "key": "employeeName",
+      "validate": {
+        "required": true,
+        "pattern": "^[A-Za-z\\s\\-']+$",
+        "maxLength": 100
+      },
+      "layout": {
+        "row": "row_5",
+        "col": 8
+      }
+    },
+    {
+      "label": "Employee ID",
+      "type": "textfield",
+      "id": "Field_employeeId",
+      "key": "employeeId",
+      "validate": {
+        "required": true,
+        "minLength": 1,
+        "maxLength": 50,
+        "pattern": "^[A-Za-z0-9\\-]+$"
+      },
+      "layout": {
+        "row": "row_5",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "datetime",
+      "type": "datetime",
+      "id": "Field_dateOfReturn",
+      "key": "dateOfReturn",
+      "dateLabel": "Date of Return",
+      "timeLabel": "Time of Return",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_6",
+        "col": 16
+      },
+      "timeInterval": 15
+    },
+    {
+      "text": "### Condition Assessment",
+      "type": "text",
+      "id": "Heading_condition",
+      "layout": {
+        "row": "row_7",
+        "col": 16
+      }
+    },
+    {
+      "label": "Tool Condition",
+      "values": [
+        {
+          "label": "Good",
+          "value": "good"
+        },
+        {
+          "label": "Damaged",
+          "value": "damaged"
+        },
+        {
+          "label": "Needs Repair",
+          "value": "needs_repair"
+        },
+        {
+          "label": "Needs Calibration",
+          "value": "needs_calibration"
+        }
+      ],
+      "type": "select",
+      "id": "Field_toolCondition",
+      "key": "toolCondition",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_8",
+        "col": 16
+      }
+    },
+    {
+      "label": "Condition Notes / Comments",
+      "type": "textarea",
+      "id": "Field_conditionNotes",
+      "key": "conditionNotes",
+      "layout": {
+        "row": "row_9",
+        "col": 16
+      }
+    },
+    {
+      "text": "### Stocking Information",
+      "type": "text",
+      "id": "Heading_stocking",
+      "layout": {
+        "row": "row_10",
+        "col": 16
+      }
+    },
+    {
+      "label": "Storage Location / Bin Number",
+      "type": "textfield",
+      "id": "Field_storageLocation",
+      "key": "storageLocation",
+      "validate": {
+        "required": true,
+        "maxLength": 255
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 8
+      }
+    },
+    {
+      "label": "Quantity Returned",
+      "type": "number",
+      "id": "Field_quantityReturned",
+      "key": "quantityReturned",
+      "defaultValue": 1,
+      "validate": {
+        "required": true,
+        "min": 1
+      },
+      "layout": {
+        "row": "row_11",
+        "col": 8
+      }
+    },
+    {
+      "text": "### Verification",
+      "type": "text",
+      "id": "Heading_verification",
+      "layout": {
+        "row": "row_12",
+        "col": 16
+      }
+    },
+    {
+      "label": "Receiver's Name",
+      "type": "textfield",
+      "id": "Field_receiverName",
+      "key": "receiverName",
+      "validate": {
+        "required": true,
+        "pattern": "^[A-Za-z\\s\\-']+$",
+        "maxLength": 100
+      },
+      "layout": {
+        "row": "row_13",
+        "col": 8
+      }
+    },
+    {
+      "subtype": "datetime",
+      "type": "datetime",
+      "id": "Field_dateReceived",
+      "key": "dateReceived",
+      "dateLabel": "Date Received",
+      "timeLabel": "Time Received",
+      "validate": {
+        "required": true
+      },
+      "layout": {
+        "row": "row_13",
+        "col": 8
+      },
+      "timeInterval": 15
+    },
+    {
+      "label": "Receiver's Signature",
+      "type": "textfield",
+      "id": "Field_receiverSignature",
+      "key": "receiverSignature",
+      "description": "Please type your full name to sign.",
+      "validate": {
+        "required": true,
+        "minLength": 2,
+        "maxLength": 100
+      },
+      "layout": {
+        "row": "row_14",
+        "col": 16
+      }
+    }
+  ],
+  "generated": true,
+  "type": "default"
+}
