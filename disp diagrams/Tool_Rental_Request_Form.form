@@ -10,61 +10,6 @@
       }
     },
     {
-      "text": "##### User Information",
-      "type": "text",
-      "id": "Subheading_user_info",
-      "layout": {
-        "row": "row_1",
-        "col": 16
-      }
-    },
-    {
-      "label": "Full Name",
-      "type": "textfield",
-      "id": "Field_fullName",
-      "key": "fullName",
-      "validate": {
-        "required": true
-      },
-      "layout": {
-        "row": "row_2",
-        "col": 8
-      }
-    },
-    {
-      "label": "Account ID / Membership Number",
-      "type": "textfield",
-      "id": "Field_accountId",
-      "key": "accountId",
-      "layout": {
-        "row": "row_2",
-        "col": 8
-      }
-    },
-    {
-      "label": "Email Address",
-      "type": "textfield",
-      "id": "Field_email",
-      "key": "email",
-      "validate": {
-        "required": true
-      },
-      "layout": {
-        "row": "row_3",
-        "col": 8
-      }
-    },
-    {
-      "label": "Phone Number",
-      "type": "textfield",
-      "id": "Field_phone",
-      "key": "phone",
-      "layout": {
-        "row": "row_3",
-        "col": 8
-      }
-    },
-    {
       "text": "##### Tool Selection",
       "type": "text",
       "id": "Subheading_tool_selection",
@@ -155,6 +100,16 @@
       "validate": {
         "required": true
       }
+    },
+    {
+      "label": "Register As Member?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_1u02vhh",
+        "columns": null
+      },
+      "id": "Field_0neckgq",
+      "key": "registerAsMember"
     },
     {
       "text": "##### Confirmation",
