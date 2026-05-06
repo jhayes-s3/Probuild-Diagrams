@@ -30,6 +30,7 @@ def main() -> int:
             "customerEmail": "alex@example.com",
             "customerAddress": "456 Home Avenue, London",
             "customerPhone": "+44 20 7946 0123",
+            "tradeCardNumber": f"TC-{po_id}",
         },
     }
 
