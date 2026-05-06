@@ -132,6 +132,7 @@
         <bpmn:flowNodeRef>Gateway_1ftyjbd</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-recieve-notification</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-recieve-serviced-tools</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_13f0h76</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0uvh248">
           <bpmn:lane id="Lane_0uqi9r8" name="warehouse manager">
             <bpmn:flowNodeRef>Event-notify-tools-are-ready-to-process</bpmn:flowNodeRef>
@@ -184,6 +185,7 @@
             <bpmn:flowNodeRef>Event-notfiy-that-new-tool-checklist-needed</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Gateway_0am4980</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_1spt6ya</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event_13f0h76</bpmn:flowNodeRef>
           </bpmn:lane>
         </bpmn:childLaneSet>
       </bpmn:lane>
@@ -204,7 +206,6 @@
         <bpmn:flowNodeRef>Event_02f8ev2</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>review-and-approve-invoice</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-receive-invoice-from-fixpro</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>update-tool-managment-database</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-receive-synced-service-records</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_0wftxo5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Activity_0gdosrj</bpmn:flowNodeRef>
@@ -217,6 +218,8 @@
         <bpmn:flowNodeRef>Event-send-items-to-be-sent</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>update-stock-records</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-stock-updated</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>update-tool-managment-database</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event_0jz9ahm</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_09epsx8" />
       </bpmn:lane>
       <bpmn:lane id="Lane_0zi4ld2" name="membership system">
@@ -303,12 +306,6 @@
       <bpmn:outgoing>Flow_0jj0k1u</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0fv6hjp" messageRef="Message_3ggqnme" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="update-tool-managment-database" name="Update tool management database">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="job-update-tool-managment-database" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_0v5yj1b</bpmn:incoming>
-    </bpmn:serviceTask>
     <bpmn:intermediateCatchEvent id="Event-receive-synced-service-records" name="Receive synced service records">
       <bpmn:outgoing>Flow_0v5yj1b</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1iws8vi" messageRef="Message_3s2n452" />
@@ -811,6 +808,7 @@
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_087pk04</bpmn:incoming>
       <bpmn:outgoing>Flow_183gstt</bpmn:outgoing>
+      <bpmn:outgoing>Flow_16j7fe9</bpmn:outgoing>
     </bpmn:userTask>
     <bpmn:intermediateThrowEvent id="Event-send-authorisation-decision" name="Send authorisation decision">
       <bpmn:extensionElements>
@@ -1070,6 +1068,21 @@
       <bpmn:outgoing>Flow_0c9p801</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1vtj1c1" messageRef="Message_1u298el" />
     </bpmn:intermediateCatchEvent>
+    <bpmn:serviceTask id="update-tool-managment-database" name="Update tool management database">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="job-update-tool-managment-database" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0v5yj1b</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kr4gax</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0jz9ahm">
+      <bpmn:incoming>Flow_0kr4gax</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0kr4gax" sourceRef="update-tool-managment-database" targetRef="Event_0jz9ahm" />
+    <bpmn:sequenceFlow id="Flow_16j7fe9" sourceRef="tag-tools-as-in-need-of-service" targetRef="Event_13f0h76" />
+    <bpmn:endEvent id="Event_13f0h76">
+      <bpmn:incoming>Flow_16j7fe9</bpmn:incoming>
+    </bpmn:endEvent>
   </bpmn:process>
   <bpmn:process id="Process_045wbt9" isExecutable="true">
     <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
@@ -1723,6 +1736,7 @@
       <bpmn:outgoing>Flow_1hf4kua</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:intermediateCatchEvent id="receive-batch-of-serviced-tools-data" name="Receive batch of serviced tools data">
+      <bpmn:incoming>Flow_1nto7l4</bpmn:incoming>
       <bpmn:outgoing>Flow_0i4q8mn</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_12qbco2" messageRef="Message_115ckr1" />
     </bpmn:intermediateCatchEvent>
@@ -1731,7 +1745,7 @@
         <zeebe:taskDefinition type="job-give-service-report" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ws0e9y</bpmn:incoming>
-      <bpmn:outgoing>Flow_15cuzc4</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1nto7l4</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1pf75lg" />
     </bpmn:intermediateThrowEvent>
     <bpmn:intermediateThrowEvent id="Event-deliver-previously-serviced-tools" name="Deliver previously serviced tools">
@@ -1763,7 +1777,6 @@
     </bpmn:manualTask>
     <bpmn:parallelGateway id="Gateway_1qlhoof">
       <bpmn:incoming>Flow_0jt63ag</bpmn:incoming>
-      <bpmn:incoming>Flow_15cuzc4</bpmn:incoming>
       <bpmn:outgoing>Flow_1jcona8</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:manualTask id="collect-flagged-tools-form-service-bay" name="Collect flagged tools from service bay">
@@ -1888,7 +1901,6 @@
     <bpmn:sequenceFlow id="Flow_0ea8je9" sourceRef="Gateway_01cbz2a" targetRef="generate-service-summary-report" />
     <bpmn:sequenceFlow id="Flow_0i4q8mn" sourceRef="receive-batch-of-serviced-tools-data" targetRef="record-service-batch-in-fixpro-client-portal" />
     <bpmn:sequenceFlow id="Flow_1ws0e9y" sourceRef="Event-deliver-previously-serviced-tools" targetRef="Event-give-service-report" />
-    <bpmn:sequenceFlow id="Flow_15cuzc4" sourceRef="Event-give-service-report" targetRef="Gateway_1qlhoof" />
     <bpmn:sequenceFlow id="Flow_0n1um6j" sourceRef="test-for-compliance-and-label" targetRef="Event_0rskjfu" />
     <bpmn:sequenceFlow id="Flow_04u7k40" sourceRef="Event_0rskjfu" targetRef="load-previousely-serviced-tools" />
     <bpmn:sequenceFlow id="Flow_01s6qcz" sourceRef="load-previousely-serviced-tools" targetRef="arrive-at-probuild-site" />
@@ -1926,6 +1938,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=serviceClassification = "maintenance"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1g410mi" sourceRef="initial-inspetion-and-diagnostics" targetRef="Gateway_0bn0npj" />
+    <bpmn:sequenceFlow id="Flow_1nto7l4" sourceRef="Event-give-service-report" targetRef="receive-batch-of-serviced-tools-data" />
   </bpmn:process>
   <bpmn:message id="Message_2235j4g" name="Message-receive-kpi-report">
     <bpmn:extensionElements>
@@ -2187,10 +2200,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="2583" y="4440" width="78" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Activity_1n25meb_di" bpmnElement="update-tool-managment-database">
-        <dc:Bounds x="2441" y="4375" width="100" height="80" />
-        <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0pgnjra_di" bpmnElement="Event-receive-synced-service-records">
         <dc:Bounds x="2353" y="4397" width="36" height="36" />
@@ -2694,6 +2703,16 @@
           <dc:Bounds x="680" y="3415" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n25meb_di" bpmnElement="update-tool-managment-database">
+        <dc:Bounds x="2420" y="4455" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0jz9ahm_di" bpmnElement="Event_0jz9ahm">
+        <dc:Bounds x="2552" y="4477" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_13f0h76_di" bpmnElement="Event_13f0h76">
+        <dc:Bounds x="1573" y="3012" width="36" height="36" />
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1coso2s_di" bpmnElement="Flow_1coso2s">
         <di:waypoint x="1651" y="3405" />
         <di:waypoint x="1713" y="3405" />
@@ -2730,7 +2749,9 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0v5yj1b_di" bpmnElement="Flow_0v5yj1b">
         <di:waypoint x="2389" y="4415" />
-        <di:waypoint x="2441" y="4415" />
+        <di:waypoint x="2405" y="4415" />
+        <di:waypoint x="2405" y="4495" />
+        <di:waypoint x="2420" y="4495" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1of77ma_di" bpmnElement="Flow_1of77ma">
         <di:waypoint x="1011" y="3405" />
@@ -3255,6 +3276,14 @@
       <bpmndi:BPMNEdge id="Flow_0livjyd_di" bpmnElement="Flow_0livjyd">
         <di:waypoint x="821" y="3378" />
         <di:waypoint x="821" y="3410" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kr4gax_di" bpmnElement="Flow_0kr4gax">
+        <di:waypoint x="2520" y="4495" />
+        <di:waypoint x="2552" y="4495" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16j7fe9_di" bpmnElement="Flow_16j7fe9">
+        <di:waypoint x="1461" y="3030" />
+        <di:waypoint x="1573" y="3030" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0wqowl0_di" bpmnElement="Participant_0wqowl0" isHorizontal="true">
         <dc:Bounds x="580" y="5660" width="1150" height="268" />
@@ -4045,7 +4074,7 @@
       <bpmndi:BPMNShape id="Event_0ew8bae_di" bpmnElement="Event-give-service-report">
         <dc:Bounds x="2104" y="1014" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="2093" y="1057" width="61" height="27" />
+          <dc:Bounds x="2091" y="976.5" width="61" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0dm84zf_di" bpmnElement="Event-deliver-previously-serviced-tools">
@@ -4250,10 +4279,6 @@
         <di:waypoint x="1550" y="1032" />
         <di:waypoint x="2104" y="1032" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_15cuzc4_di" bpmnElement="Flow_15cuzc4">
-        <di:waypoint x="2122" y="1014" />
-        <di:waypoint x="2122" y="965" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0n1um6j_di" bpmnElement="Flow_0n1um6j">
         <di:waypoint x="1754" y="770" />
         <di:waypoint x="1329" y="770" />
@@ -4377,6 +4402,12 @@
       <bpmndi:BPMNEdge id="BPMNEdge_0ykger4" bpmnElement="Flow_1g410mi">
         <di:waypoint x="654" y="158" />
         <di:waypoint x="719" y="158" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nto7l4_di" bpmnElement="Flow_1nto7l4">
+        <di:waypoint x="2122" y="1050" />
+        <di:waypoint x="2122" y="1090" />
+        <di:waypoint x="456" y="1090" />
+        <di:waypoint x="456" y="1242" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_0j0comg_di" bpmnElement="TextAnnotation_0j0comg">
         <dc:Bounds x="1600" y="5630" width="100" height="30" />
