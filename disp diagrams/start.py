@@ -26,6 +26,10 @@ def main() -> int:
             "deliveryOrderId": f"DO-{po_id}",
             "deliveryLocation": "123 Test Street, London",
             "tradeCardBeingUsed": True,
+            "customerName": "Alex Customer",
+            "customerEmail": "alex@example.com",
+            "customerAddress": "456 Home Avenue, London",
+            "customerPhone": "+44 20 7946 0123",
         },
     }
 

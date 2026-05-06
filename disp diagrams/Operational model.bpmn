@@ -192,7 +192,6 @@
       <bpmn:lane id="Lane_0i0xy8k" name="sales system">
         <bpmn:flowNodeRef>check-stock-avaliability</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-request-stock-availability</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>notify-team-of-new-order</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_063ewr9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>archive-purchase-order</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_15ztpfz</bpmn:flowNodeRef>
@@ -558,15 +557,8 @@
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT2S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:scriptTask id="notify-team-of-new-order" name="Notify logistics team and warehouse of new order">
-      <bpmn:extensionElements>
-        <zeebe:taskDefinition type="job-notify-team-of-new-order" />
-      </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1lr2szv</bpmn:incoming>
-      <bpmn:outgoing>Flow_1c9xzlo</bpmn:outgoing>
-    </bpmn:scriptTask>
     <bpmn:parallelGateway id="Gateway_063ewr9">
-      <bpmn:incoming>Flow_1c9xzlo</bpmn:incoming>
+      <bpmn:incoming>Flow_07ca14v</bpmn:incoming>
       <bpmn:outgoing>Flow_0iczhvl</bpmn:outgoing>
       <bpmn:outgoing>Flow_0a01m66</bpmn:outgoing>
     </bpmn:parallelGateway>
@@ -937,7 +929,6 @@
     <bpmn:sequenceFlow id="Flow_1l3bnbu" sourceRef="Event-recieve-stock-availability-request" targetRef="Activity_0gdosrj" />
     <bpmn:sequenceFlow id="Flow_1d9u81t" sourceRef="Event-order-confirmation" targetRef="Event-wait-until-items-delivered" />
     <bpmn:sequenceFlow id="Flow_0xpifdl" sourceRef="Event-wait-until-items-delivered" targetRef="Gateway_0cvy0qe" />
-    <bpmn:sequenceFlow id="Flow_1c9xzlo" sourceRef="notify-team-of-new-order" targetRef="Gateway_063ewr9" />
     <bpmn:sequenceFlow id="Flow_0iczhvl" sourceRef="Gateway_063ewr9" targetRef="archive-purchase-order" />
     <bpmn:sequenceFlow id="Flow_0a01m66" name="list of items to pack sent" sourceRef="Gateway_063ewr9" targetRef="Gateway_0l59irx" />
     <bpmn:sequenceFlow id="Flow_0soxsla" sourceRef="Gateway_1i8hf0e" targetRef="archive-purchase-order" />
@@ -1025,6 +1016,7 @@
     <bpmn:intermediateCatchEvent id="Event-recieve-items-to-be-sent" name="Recieve items to be sent">
       <bpmn:incoming>Flow_00dc0js</bpmn:incoming>
       <bpmn:outgoing>Flow_to_warehouse_split</bpmn:outgoing>
+      <bpmn:outgoing>Flow_07ca14v</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0eikvy6" messageRef="Message_3sdli1h" />
     </bpmn:intermediateCatchEvent>
     <bpmn:sequenceFlow id="Flow_09yvsne" sourceRef="save-rest-of-customers-details" targetRef="Event_1o2zkkg" />
@@ -1083,6 +1075,7 @@
     <bpmn:endEvent id="Event_13f0h76">
       <bpmn:incoming>Flow_16j7fe9</bpmn:incoming>
     </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_07ca14v" sourceRef="Event-recieve-items-to-be-sent" targetRef="Gateway_063ewr9" />
   </bpmn:process>
   <bpmn:process id="Process_045wbt9" isExecutable="true">
     <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
@@ -1507,10 +1500,10 @@
       <bpmn:messageEventDefinition id="MessageEventDefinition_1wp98v3" />
     </bpmn:intermediateThrowEvent>
     <bpmn:sequenceFlow id="Flow_1yhow38" sourceRef="Event_071ls21" targetRef="Activity_050l7qv" />
-    <bpmn:intermediateCatchEvent id="Event_071ls21">
+    <bpmn:startEvent id="Event_071ls21" name="Receive payment auth">
       <bpmn:outgoing>Flow_1yhow38</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_09edjl2" messageRef="Message_3e3bqd1" />
-    </bpmn:intermediateCatchEvent>
+    </bpmn:startEvent>
   </bpmn:process>
   <bpmn:process id="Process_0rdg2q2" isExecutable="false">
     <bpmn:serviceTask id="evaluate-credit" name="Evaluate Credit">
@@ -2394,9 +2387,6 @@
           <dc:Bounds x="1476" y="4420" width="72" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BPMNShape_0fmbgnv" bpmnElement="notify-team-of-new-order">
-        <dc:Bounds x="1101" y="4055" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BPMNShape_0tdcfcp" bpmnElement="Gateway_063ewr9">
         <dc:Bounds x="1256" y="4070" width="50" height="50" />
       </bpmndi:BPMNShape>
@@ -2997,10 +2987,6 @@
         <di:waypoint x="1511" y="4355" />
         <di:waypoint x="1406" y="4355" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="BPMNEdge_0hwiitj" bpmnElement="Flow_1c9xzlo">
-        <di:waypoint x="1201" y="4095" />
-        <di:waypoint x="1256" y="4095" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="BPMNEdge_1k9lxvd" bpmnElement="Flow_0iczhvl">
         <di:waypoint x="1306" y="4095" />
         <di:waypoint x="1361" y="4095" />
@@ -3284,6 +3270,10 @@
       <bpmndi:BPMNEdge id="Flow_16j7fe9_di" bpmnElement="Flow_16j7fe9">
         <di:waypoint x="1461" y="3030" />
         <di:waypoint x="1573" y="3030" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_07ca14v_di" bpmnElement="Flow_07ca14v">
+        <di:waypoint x="1049" y="4095" />
+        <di:waypoint x="1256" y="4095" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0wqowl0_di" bpmnElement="Participant_0wqowl0" isHorizontal="true">
         <dc:Bounds x="580" y="5660" width="1150" height="268" />
@@ -4654,6 +4644,64 @@
       <bpmndi:BPMNEdge id="Association_0nagfda_di" bpmnElement="Association_0nagfda">
         <di:waypoint x="1120" y="5080" />
         <di:waypoint x="1023" y="5041" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_warehouse_split_di" bpmnElement="Gateway_warehouse_split">
+        <dc:Bounds x="3300" y="5800" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_post_handover_di" bpmnElement="Gateway_post_handover">
+        <dc:Bounds x="3300" y="5900" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event-fixpro-service-start_di" bpmnElement="Event-fixpro-service-start">
+        <dc:Bounds x="3300" y="6000" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3270" y="6042" width="100" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event-tools-tagged_di" bpmnElement="Event-tools-tagged">
+        <dc:Bounds x="3300" y="6080" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3270" y="6122" width="100" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_to_warehouse_split_di" bpmnElement="Flow_to_warehouse_split">
+        <di:waypoint x="3280" y="5825" />
+        <di:waypoint x="3300" y="5825" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lr2szv_di" bpmnElement="Flow_1lr2szv">
+        <di:waypoint x="3350" y="5825" />
+        <di:waypoint x="3400" y="5825" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_to_supplier_catch_di" bpmnElement="Flow_to_supplier_catch">
+        <di:waypoint x="3325" y="5850" />
+        <di:waypoint x="3325" y="5950" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_handover_to_recv_serviced_di" bpmnElement="Flow_handover_to_recv_serviced">
+        <di:waypoint x="3280" y="5925" />
+        <di:waypoint x="3300" y="5925" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_split_to_serviced_tools_di" bpmnElement="Flow_split_to_serviced_tools">
+        <di:waypoint x="3350" y="5915" />
+        <di:waypoint x="3400" y="5900" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_split_to_service_report_di" bpmnElement="Flow_split_to_service_report">
+        <di:waypoint x="3350" y="5935" />
+        <di:waypoint x="3400" y="5950" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_to_fixpro_inspect_di" bpmnElement="Flow_to_fixpro_inspect">
+        <di:waypoint x="3336" y="6018" />
+        <di:waypoint x="3400" y="6018" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_send_to_recv_auth_di" bpmnElement="Flow_send_to_recv_auth">
+        <di:waypoint x="3300" y="6200" />
+        <di:waypoint x="3400" y="6200" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_183gstt_di" bpmnElement="Flow_183gstt">
+        <di:waypoint x="3280" y="6098" />
+        <di:waypoint x="3300" y="6098" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_pl2cfm_di" bpmnElement="Flow_pl2cfm">
+        <di:waypoint x="3300" y="6300" />
+        <di:waypoint x="3400" y="6300" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
