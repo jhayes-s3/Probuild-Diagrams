@@ -93,11 +93,9 @@
         <bpmn:flowNodeRef>rescan-tools-into-ims</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>enter-tools-back-into-stock</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>process-tools</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event-recieve-notification</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-notify-tools-are-ready-to-process</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>review-service-reports</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-receive-service-report</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Event-recieve-serviced-tools</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-give-digital-handover</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>receive-new-tool-checklist-needed</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>move-tools-to-service-bay</bpmn:flowNodeRef>
@@ -131,6 +129,9 @@
         <bpmn:flowNodeRef>Event_1spt6ya</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1e5jvyb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_07h08rb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Gateway_1ftyjbd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event-recieve-notification</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Event-recieve-serviced-tools</bpmn:flowNodeRef>
         <bpmn:childLaneSet id="LaneSet_0uvh248">
           <bpmn:lane id="Lane_0uqi9r8" name="warehouse manager">
             <bpmn:flowNodeRef>Event-notify-tools-are-ready-to-process</bpmn:flowNodeRef>
@@ -156,8 +157,6 @@
             <bpmn:flowNodeRef>rescan-tools-into-ims</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>enter-tools-back-into-stock</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>process-tools</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Event-recieve-notification</bpmn:flowNodeRef>
-            <bpmn:flowNodeRef>Event-recieve-serviced-tools</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event-recieve-delivery-order</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>locate-items</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>pack-items-and-take-to-loading-dock</bpmn:flowNodeRef>
@@ -174,6 +173,9 @@
             <bpmn:flowNodeRef>Gateway_1vsn6it</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>move-items-to-storage</bpmn:flowNodeRef>
             <bpmn:flowNodeRef>Event_07h08rb</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Gateway_1ftyjbd</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event-recieve-notification</bpmn:flowNodeRef>
+            <bpmn:flowNodeRef>Event-recieve-serviced-tools</bpmn:flowNodeRef>
           </bpmn:lane>
           <bpmn:lane id="Lane_1brzvkt" name="maintanance team">
             <bpmn:flowNodeRef>move-tools-to-service-bay</bpmn:flowNodeRef>
@@ -324,15 +326,9 @@
       <bpmn:incoming>Flow_1l260x4</bpmn:incoming>
       <bpmn:outgoing>Flow_1of77ma</bpmn:outgoing>
     </bpmn:manualTask>
-    <bpmn:intermediateCatchEvent id="Event-recieve-notification" name="Receive notification">
-      <bpmn:incoming>Flow_0eyhlfp</bpmn:incoming>
-      <bpmn:incoming>Flow_00p2rfe</bpmn:incoming>
-      <bpmn:outgoing>Flow_1l260x4</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_08c4e29" messageRef="Message_2p447fo" />
-    </bpmn:intermediateCatchEvent>
     <bpmn:intermediateThrowEvent id="Event-notify-tools-are-ready-to-process" name="Notify staff tools are ready to process">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="=job--notify-tools-are-ready-to-process" />
+        <zeebe:taskDefinition type="job-notify-tools-are-ready-to-process" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1ylcehq</bpmn:incoming>
       <bpmn:outgoing>Flow_0eyhlfp</bpmn:outgoing>
@@ -346,11 +342,6 @@
       <bpmn:incoming>Flow_split_to_service_report</bpmn:incoming>
       <bpmn:outgoing>Flow_07e40rj</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1h28jd2" messageRef="Message_26rh36i" />
-    </bpmn:intermediateCatchEvent>
-    <bpmn:intermediateCatchEvent id="Event-recieve-serviced-tools" name="recieve tools serviced">
-      <bpmn:incoming>Flow_split_to_serviced_tools</bpmn:incoming>
-      <bpmn:outgoing>Flow_00p2rfe</bpmn:outgoing>
-      <bpmn:messageEventDefinition id="MessageEventDefinition_1vtj1c1" messageRef="Message_1u298el" />
     </bpmn:intermediateCatchEvent>
     <bpmn:intermediateThrowEvent id="Event-give-digital-handover" name="give digital handover">
       <bpmn:extensionElements>
@@ -888,9 +879,8 @@
     <bpmn:sequenceFlow id="Flow_0v5yj1b" sourceRef="Event-receive-synced-service-records" targetRef="update-tool-managment-database" />
     <bpmn:sequenceFlow id="Flow_1of77ma" sourceRef="process-tools" targetRef="enter-tools-back-into-stock" />
     <bpmn:sequenceFlow id="Flow_0s59agg" sourceRef="enter-tools-back-into-stock" targetRef="update-stock-records" />
-    <bpmn:sequenceFlow id="Flow_1l260x4" sourceRef="Event-recieve-notification" targetRef="process-tools" />
+    <bpmn:sequenceFlow id="Flow_1l260x4" sourceRef="Gateway_1ftyjbd" targetRef="process-tools" />
     <bpmn:sequenceFlow id="Flow_0eyhlfp" sourceRef="Event-notify-tools-are-ready-to-process" targetRef="Event-recieve-notification" />
-    <bpmn:sequenceFlow id="Flow_00p2rfe" sourceRef="Event-recieve-serviced-tools" targetRef="Event-recieve-notification" />
     <bpmn:sequenceFlow id="Flow_1ylcehq" sourceRef="review-service-reports" targetRef="Event-notify-tools-are-ready-to-process" />
     <bpmn:sequenceFlow id="Flow_07e40rj" sourceRef="Event-receive-service-report" targetRef="review-service-reports" />
     <bpmn:sequenceFlow id="Flow_1fm2wkm" sourceRef="create-digital-handover-checklist-for-tools" targetRef="Event-give-digital-handover" />
@@ -1063,6 +1053,23 @@
       <bpmn:incoming>Flow_07gwz0r</bpmn:incoming>
       <bpmn:outgoing>Flow_1kxkc3i</bpmn:outgoing>
     </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0c9p801" sourceRef="Event-recieve-serviced-tools" targetRef="Gateway_1ftyjbd" />
+    <bpmn:parallelGateway id="Gateway_1ftyjbd">
+      <bpmn:incoming>Flow_0c9p801</bpmn:incoming>
+      <bpmn:incoming>Flow_0livjyd</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l260x4</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_0livjyd" sourceRef="Event-recieve-notification" targetRef="Gateway_1ftyjbd" />
+    <bpmn:intermediateCatchEvent id="Event-recieve-notification" name="Receive notification">
+      <bpmn:incoming>Flow_0eyhlfp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0livjyd</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_08c4e29" messageRef="Message_2p447fo" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:intermediateCatchEvent id="Event-recieve-serviced-tools" name="recieve tools serviced">
+      <bpmn:incoming>Flow_split_to_serviced_tools</bpmn:incoming>
+      <bpmn:outgoing>Flow_0c9p801</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1vtj1c1" messageRef="Message_1u298el" />
+    </bpmn:intermediateCatchEvent>
   </bpmn:process>
   <bpmn:process id="Process_045wbt9" isExecutable="true">
     <bpmn:startEvent id="Event_0tz8jej" name="Receive PO from Probuild">
@@ -2197,12 +2204,6 @@
       <bpmndi:BPMNShape id="Activity_0eykm43_di" bpmnElement="process-tools">
         <dc:Bounds x="911" y="3365" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_1mu4al9_di" bpmnElement="Event-recieve-notification">
-        <dc:Bounds x="793" y="3387" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="785" y="3430" width="53" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_1qqs8cv_di" bpmnElement="Event-notify-tools-are-ready-to-process">
         <dc:Bounds x="1833" y="3167" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -2216,12 +2217,6 @@
         <dc:Bounds x="1613" y="3167" width="36" height="36" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="1593" y="3210" width="78" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Event_0bh5tp5_di" bpmnElement="Event-recieve-serviced-tools">
-        <dc:Bounds x="683" y="3387" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="671" y="3430" width="63" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0nqgxj2_di" bpmnElement="Event-give-digital-handover">
@@ -2684,6 +2679,21 @@
         <dc:Bounds x="1541" y="2565" width="100" height="80" />
         <bpmndi:BPMNLabel />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1q6s9o8_di" bpmnElement="Gateway_1ftyjbd">
+        <dc:Bounds x="796" y="3410" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1mu4al9_di" bpmnElement="Event-recieve-notification">
+        <dc:Bounds x="803" y="3342" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="794" y="3304.5" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bh5tp5_di" bpmnElement="Event-recieve-serviced-tools">
+        <dc:Bounds x="692" y="3372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="680" y="3415" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Flow_1coso2s_di" bpmnElement="Flow_1coso2s">
         <di:waypoint x="1651" y="3405" />
         <di:waypoint x="1713" y="3405" />
@@ -2735,20 +2745,17 @@
         <di:waypoint x="1941" y="4375" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1l260x4_di" bpmnElement="Flow_1l260x4">
-        <di:waypoint x="829" y="3405" />
+        <di:waypoint x="846" y="3435" />
+        <di:waypoint x="870" y="3435" />
+        <di:waypoint x="870" y="3405" />
         <di:waypoint x="911" y="3405" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0eyhlfp_di" bpmnElement="Flow_0eyhlfp">
         <di:waypoint x="1851" y="3203" />
         <di:waypoint x="1851" y="3245" />
         <di:waypoint x="1741" y="3245" />
-        <di:waypoint x="1741" y="3355" />
-        <di:waypoint x="811" y="3355" />
-        <di:waypoint x="811" y="3387" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_00p2rfe_di" bpmnElement="Flow_00p2rfe">
-        <di:waypoint x="719" y="3405" />
-        <di:waypoint x="793" y="3405" />
+        <di:waypoint x="1741" y="3360" />
+        <di:waypoint x="839" y="3360" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ylcehq_di" bpmnElement="Flow_1ylcehq">
         <di:waypoint x="1791" y="3185" />
@@ -3239,6 +3246,16 @@
         <di:waypoint x="1641" y="2605" />
         <di:waypoint x="1666" y="2605" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0c9p801_di" bpmnElement="Flow_0c9p801">
+        <di:waypoint x="728" y="3390" />
+        <di:waypoint x="758" y="3390" />
+        <di:waypoint x="758" y="3435" />
+        <di:waypoint x="796" y="3435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0livjyd_di" bpmnElement="Flow_0livjyd">
+        <di:waypoint x="821" y="3378" />
+        <di:waypoint x="821" y="3410" />
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Participant_0wqowl0_di" bpmnElement="Participant_0wqowl0" isHorizontal="true">
         <dc:Bounds x="580" y="5660" width="1150" height="268" />
         <bpmndi:BPMNLabel />
@@ -3510,7 +3527,7 @@
         <dc:Bounds x="1070" y="6125" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Activity_0pdfw1h_di" bpmnElement="show-checkout-page">
-        <dc:Bounds x="1540" y="6130" width="100" height="80" />
+        <dc:Bounds x="1540" y="6125" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0lkexuu_di" bpmnElement="Event_0lkexuu">
         <dc:Bounds x="1102" y="6582" width="36" height="36" />
@@ -3540,9 +3557,7 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0occ9ke_di" bpmnElement="Flow_0occ9ke">
         <di:waypoint x="1440" y="6165" />
-        <di:waypoint x="1490" y="6165" />
-        <di:waypoint x="1490" y="6170" />
-        <di:waypoint x="1540" y="6170" />
+        <di:waypoint x="1540" y="6165" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0gej0mo_di" bpmnElement="Flow_0gej0mo">
         <di:waypoint x="550" y="6270" />
@@ -3813,9 +3828,7 @@
         <di:waypoint x="525" y="6245" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1y1led5_di" bpmnElement="Flow_1y1led5">
-        <di:waypoint x="1640" y="6170" />
-        <di:waypoint x="1670" y="6170" />
-        <di:waypoint x="1670" y="6165" />
+        <di:waypoint x="1640" y="6165" />
         <di:waypoint x="1700" y="6165" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_02qbf9m_di" bpmnElement="Flow_02qbf9m">
@@ -4545,8 +4558,8 @@
       <bpmndi:BPMNEdge id="Flow_1jnf26u_di" bpmnElement="Flow_1jnf26u">
         <di:waypoint x="1516" y="1040" />
         <di:waypoint x="1516" y="3290" />
-        <di:waypoint x="701" y="3290" />
-        <di:waypoint x="701" y="3387" />
+        <di:waypoint x="710" y="3290" />
+        <di:waypoint x="710" y="3372" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1wvk3zo_di" bpmnElement="Flow_1wvk3zo">
         <di:waypoint x="2140" y="1032" />
