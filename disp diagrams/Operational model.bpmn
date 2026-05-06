@@ -343,10 +343,12 @@
       <bpmn:outgoing>Flow_1ylcehq</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:intermediateCatchEvent id="Event-receive-service-report" name="Receive service report">
+      <bpmn:incoming>Flow_split_to_service_report</bpmn:incoming>
       <bpmn:outgoing>Flow_07e40rj</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1h28jd2" messageRef="Message_26rh36i" />
     </bpmn:intermediateCatchEvent>
     <bpmn:intermediateCatchEvent id="Event-recieve-serviced-tools" name="recieve tools serviced">
+      <bpmn:incoming>Flow_split_to_serviced_tools</bpmn:incoming>
       <bpmn:outgoing>Flow_00p2rfe</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1vtj1c1" messageRef="Message_1u298el" />
     </bpmn:intermediateCatchEvent>
@@ -355,8 +357,17 @@
         <zeebe:taskDefinition type="job-give-digital-handover" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1fm2wkm</bpmn:incoming>
+      <bpmn:outgoing>Flow_handover_to_recv_serviced</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_18puslt" />
     </bpmn:intermediateThrowEvent>
+    <bpmn:parallelGateway id="Gateway_post_handover">
+      <bpmn:incoming>Flow_handover_to_recv_serviced</bpmn:incoming>
+      <bpmn:outgoing>Flow_split_to_serviced_tools</bpmn:outgoing>
+      <bpmn:outgoing>Flow_split_to_service_report</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:sequenceFlow id="Flow_handover_to_recv_serviced" sourceRef="Event-give-digital-handover" targetRef="Gateway_post_handover" />
+    <bpmn:sequenceFlow id="Flow_split_to_serviced_tools" sourceRef="Gateway_post_handover" targetRef="Event-recieve-serviced-tools" />
+    <bpmn:sequenceFlow id="Flow_split_to_service_report" sourceRef="Gateway_post_handover" targetRef="Event-receive-service-report" />
     <bpmn:intermediateCatchEvent id="receive-new-tool-checklist-needed" name="receive new tool checklist needed">
       <bpmn:incoming>Flow_0wsem8m</bpmn:incoming>
       <bpmn:outgoing>Flow_0krn4jk</bpmn:outgoing>
@@ -1580,7 +1591,7 @@
       <zeebe:subscription correlationKey="=orderId" />
     </bpmn:extensionElements>
   </bpmn:message>
-  <bpmn:process id="Process_0i67665" isExecutable="false">
+  <bpmn:process id="Process_0i67665" isExecutable="true">
     <bpmn:laneSet id="LaneSet_0d33bsa">
       <bpmn:lane id="Lane_1qeecps" name="Account Manager">
         <bpmn:flowNodeRef>conduct-quarterly-review-meeting-with-probuild-operations-manager</bpmn:flowNodeRef>
@@ -1636,7 +1647,6 @@
         <bpmn:flowNodeRef>collect-flagged-tools-form-service-bay</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>sign-off-handover-checklist</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event-receive-digital-handover-checklist</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Gateway_0s3ei45</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:userTask id="conduct-quarterly-review-meeting-with-probuild-operations-manager" name="Conduct quarterly review meeting with ProBuild Operations Manager">
@@ -1693,7 +1703,7 @@
     <bpmn:startEvent id="quarterly-review-schedule" name="Quarterly review schedule">
       <bpmn:outgoing>Flow_16tdv9u</bpmn:outgoing>
       <bpmn:timerEventDefinition id="TimerEventDefinition_16dsdq3">
-        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">PT2S</bpmn:timeCycle>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">P30D</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:startEvent>
     <bpmn:endEvent id="Event-invoice-sent" name="Invoice Sent">
@@ -1733,6 +1743,9 @@
       <bpmn:outgoing>Flow_0s4kndd</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:serviceTask id="record-service-batch-in-fixpro-client-portal" name="Record service batch in FixPro client portal">
+      <bpmn:extensionElements>
+        <zeebe:taskDefinition type="job-record-service-batch-in-fixpro-client-portal" />
+      </bpmn:extensionElements>
       <bpmn:incoming>Flow_0i4q8mn</bpmn:incoming>
       <bpmn:outgoing>Flow_1hf4kua</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -1752,7 +1765,7 @@
       <bpmn:extensionElements>
         <zeebe:taskDefinition type="job-deliver-previously-serviced-tools" />
       </bpmn:extensionElements>
-      <bpmn:incoming>Flow_1an6lr0</bpmn:incoming>
+      <bpmn:incoming>Flow_03u1twt</bpmn:incoming>
       <bpmn:outgoing>Flow_1ws0e9y</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_0pbub52" />
     </bpmn:intermediateThrowEvent>
@@ -1789,16 +1802,11 @@
       <bpmn:outgoing>Flow_0ngpz3i</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:intermediateCatchEvent id="Event-receive-digital-handover-checklist" name="Receive digital handover checklist">
-      <bpmn:incoming>Flow_13jp10p</bpmn:incoming>
       <bpmn:outgoing>Flow_0gk5wr0</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_12dqrwa" messageRef="Message_2ngohh3" />
     </bpmn:intermediateCatchEvent>
-    <bpmn:parallelGateway id="Gateway_0s3ei45">
-      <bpmn:incoming>Flow_03u1twt</bpmn:incoming>
-      <bpmn:outgoing>Flow_1an6lr0</bpmn:outgoing>
-      <bpmn:outgoing>Flow_13jp10p</bpmn:outgoing>
-    </bpmn:parallelGateway>
     <bpmn:intermediateCatchEvent id="Event-receive-authorisation-decision" name="Receive authorisation decision">
+      <bpmn:incoming>Flow_send_to_recv_auth</bpmn:incoming>
       <bpmn:outgoing>Flow_013b3py</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1142k78" messageRef="Message_20723pt" />
     </bpmn:intermediateCatchEvent>
@@ -1807,8 +1815,10 @@
         <zeebe:taskDefinition type="job-send-authorisation-request-via-portal" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_1gt3bnw</bpmn:incoming>
+      <bpmn:outgoing>Flow_send_to_recv_auth</bpmn:outgoing>
       <bpmn:messageEventDefinition id="MessageEventDefinition_1nizhwm" />
     </bpmn:intermediateThrowEvent>
+    <bpmn:sequenceFlow id="Flow_send_to_recv_auth" sourceRef="Event-send-authorisation-request-via-portal" targetRef="Event-receive-authorisation-decision" />
     <bpmn:manualTask id="test-for-compliance-and-label" name="Test for compliance and label">
       <bpmn:incoming>Flow_1w8lu08</bpmn:incoming>
       <bpmn:outgoing>Flow_0n1um6j</bpmn:outgoing>
@@ -1858,11 +1868,17 @@
     <bpmn:manualTask id="initial-inspetion-and-diagnostics" name="Initial inspection and diagnostics">
       <bpmn:extensionElements />
       <bpmn:incoming>Flow_1nln3zl</bpmn:incoming>
+      <bpmn:incoming>Flow_to_fixpro_inspect</bpmn:incoming>
       <bpmn:outgoing>Flow_1g410mi</bpmn:outgoing>
     </bpmn:manualTask>
+    <bpmn:startEvent id="Event-fixpro-service-start" name="Receive tools from Probuild for service">
+      <bpmn:outgoing>Flow_to_fixpro_inspect</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_fixpro_start" messageRef="Message_2ngohh3" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_to_fixpro_inspect" sourceRef="Event-fixpro-service-start" targetRef="initial-inspetion-and-diagnostics" />
     <bpmn:serviceTask id="generate-service-summary-report" name="Generate Service Summary Reprt">
       <bpmn:extensionElements>
-        <zeebe:taskDefinition type="job-" />
+        <zeebe:taskDefinition type="job-generate-service-summary-report" />
       </bpmn:extensionElements>
       <bpmn:incoming>Flow_0ea8je9</bpmn:incoming>
       <bpmn:outgoing>Flow_07shxpf</bpmn:outgoing>
@@ -1876,7 +1892,7 @@
     </bpmn:serviceTask>
     <bpmn:sequenceFlow id="Flow_1y52nfu" sourceRef="Gateway_0yh65tl" targetRef="conduct-quarterly-review-meeting-with-probuild-operations-manager" />
     <bpmn:sequenceFlow id="Flow_1yp6ygl" name="yes" sourceRef="Gateway_0erqev3" targetRef="conduct-quarterly-review-meeting-with-probuild-operations-manager">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=kpiMet = false</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=kpiMet = true</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1bss7xk" sourceRef="conduct-quarterly-review-meeting-with-probuild-operations-manager" targetRef="send-kpi-and-lifecycle-report-to-probuild" />
     <bpmn:sequenceFlow id="Flow_0dvpi9d" sourceRef="prepare-improvement-plan" targetRef="Gateway_0yh65tl" />
@@ -1900,17 +1916,15 @@
     <bpmn:sequenceFlow id="Flow_0i4q8mn" sourceRef="receive-batch-of-serviced-tools-data" targetRef="record-service-batch-in-fixpro-client-portal" />
     <bpmn:sequenceFlow id="Flow_1ws0e9y" sourceRef="Event-deliver-previously-serviced-tools" targetRef="Event-give-service-report" />
     <bpmn:sequenceFlow id="Flow_15cuzc4" sourceRef="Event-give-service-report" targetRef="Gateway_1qlhoof" />
-    <bpmn:sequenceFlow id="Flow_1an6lr0" sourceRef="Gateway_0s3ei45" targetRef="Event-deliver-previously-serviced-tools" />
     <bpmn:sequenceFlow id="Flow_0n1um6j" sourceRef="test-for-compliance-and-label" targetRef="Event_0rskjfu" />
     <bpmn:sequenceFlow id="Flow_04u7k40" sourceRef="Event_0rskjfu" targetRef="load-previousely-serviced-tools" />
     <bpmn:sequenceFlow id="Flow_01s6qcz" sourceRef="load-previousely-serviced-tools" targetRef="arrive-at-probuild-site" />
-    <bpmn:sequenceFlow id="Flow_03u1twt" sourceRef="arrive-at-probuild-site" targetRef="Gateway_0s3ei45" />
+    <bpmn:sequenceFlow id="Flow_03u1twt" sourceRef="arrive-at-probuild-site" targetRef="Event-deliver-previously-serviced-tools" />
     <bpmn:sequenceFlow id="Flow_1jcona8" sourceRef="Gateway_1qlhoof" targetRef="transport-tools-to-fixpro-facility" />
     <bpmn:sequenceFlow id="Flow_1nln3zl" sourceRef="transport-tools-to-fixpro-facility" targetRef="initial-inspetion-and-diagnostics" />
     <bpmn:sequenceFlow id="Flow_0jt63ag" sourceRef="collect-flagged-tools-form-service-bay" targetRef="Gateway_1qlhoof" />
     <bpmn:sequenceFlow id="Flow_0ngpz3i" sourceRef="sign-off-handover-checklist" targetRef="collect-flagged-tools-form-service-bay" />
     <bpmn:sequenceFlow id="Flow_0gk5wr0" sourceRef="Event-receive-digital-handover-checklist" targetRef="sign-off-handover-checklist" />
-    <bpmn:sequenceFlow id="Flow_13jp10p" sourceRef="Gateway_0s3ei45" targetRef="Event-receive-digital-handover-checklist" />
     <bpmn:sequenceFlow id="Flow_013b3py" sourceRef="Event-receive-authorisation-decision" targetRef="Gateway_0t8yyy6" />
     <bpmn:sequenceFlow id="Flow_1gt3bnw" name="&#62;£50" sourceRef="Gateway_0ime2nr" targetRef="Event-send-authorisation-request-via-portal">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=lessThan50 = false</bpmn:conditionExpression>
@@ -1921,7 +1935,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=authorisationApproved = false</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1qjuuwe" name="Out of service" sourceRef="Gateway_0bn0npj" targetRef="flag-for-decomissioning">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=outOfService = true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=serviceClassification = "decommission"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1q57o8g" name="Yes" sourceRef="Gateway_0t8yyy6" targetRef="perform-repair">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=authorisationApproved = true</bpmn:conditionExpression>
@@ -1933,10 +1947,10 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0git4jz" sourceRef="assess-repair-cost" targetRef="Gateway_0ime2nr" />
     <bpmn:sequenceFlow id="Flow_03iw66y" name="Repair job" sourceRef="Gateway_0bn0npj" targetRef="assess-repair-cost">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=repair = true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=serviceClassification = "repair"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_0n07zj5" name="Routine maintenance job" sourceRef="Gateway_0bn0npj" targetRef="perform-routine-maintenance">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=routineMaintenance = true</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">=serviceClassification = "maintenance"</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="Flow_1g410mi" sourceRef="initial-inspetion-and-diagnostics" targetRef="Gateway_0bn0npj" />
   </bpmn:process>
@@ -1977,12 +1991,12 @@
   </bpmn:message>
   <bpmn:message id="Message_2ngohh3" name="Message-receive-digital-handover-checklist">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=digitalHandoverChecklist" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_20723pt" name="Message-receive-authorisation-decision">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=authorisationDecision" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_11phg4g" name="Message-apply-price-change">
@@ -2002,7 +2016,7 @@
   </bpmn:message>
   <bpmn:message id="Message_26rh36i" name="Message-receive-service-report">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=serviceReportId" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_0nu9epm" name="Message-receive-discrepancy-report">
@@ -2012,12 +2026,12 @@
   </bpmn:message>
   <bpmn:message id="Message_1u298el" name="Message-recieve-serviced-tools">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=servicedToolsId" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_2p447fo" name="Message-recieve-notification">
     <bpmn:extensionElements>
-      <zeebe:subscription correlationKey="=servicedToolsiD" />
+      <zeebe:subscription correlationKey="=purchaseOrderId" />
     </bpmn:extensionElements>
   </bpmn:message>
   <bpmn:message id="Message_1eunnhf" name="Message-recieve-delivery-order">
@@ -3542,9 +3556,6 @@
           <dc:Bounds x="1641" y="872" width="73" height="40" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Gateway_0unu9hz_di" bpmnElement="Gateway_0s3ei45">
-        <dc:Bounds x="1507" y="915" width="50" height="50" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Event_0m7mxi2_di" bpmnElement="Event-receive-authorisation-decision">
         <dc:Bounds x="1438" y="490" width="36" height="36" />
         <bpmndi:BPMNLabel>
@@ -3713,10 +3724,6 @@
         <di:waypoint x="2122" y="1014" />
         <di:waypoint x="2122" y="965" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1an6lr0_di" bpmnElement="Flow_1an6lr0">
-        <di:waypoint x="1532" y="965" />
-        <di:waypoint x="1532" y="1014" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_0n1um6j_di" bpmnElement="Flow_0n1um6j">
         <di:waypoint x="1754" y="770" />
         <di:waypoint x="1329" y="770" />
@@ -3734,7 +3741,8 @@
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_03u1twt_di" bpmnElement="Flow_03u1twt">
         <di:waypoint x="1412" y="940" />
-        <di:waypoint x="1507" y="940" />
+        <di:waypoint x="1532" y="940" />
+        <di:waypoint x="1532" y="1014" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1jcona8_di" bpmnElement="Flow_1jcona8">
         <di:waypoint x="2147" y="940" />
@@ -3757,10 +3765,6 @@
       <bpmndi:BPMNEdge id="Flow_0gk5wr0_di" bpmnElement="Flow_0gk5wr0">
         <di:waypoint x="1694" y="940" />
         <di:waypoint x="1782" y="940" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_13jp10p_di" bpmnElement="Flow_13jp10p">
-        <di:waypoint x="1557" y="940" />
-        <di:waypoint x="1658" y="940" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_013b3py_di" bpmnElement="Flow_013b3py">
         <di:waypoint x="1474" y="508" />
@@ -4530,6 +4534,28 @@
       <bpmndi:BPMNEdge id="Flow_0xu9r0o_di" bpmnElement="Flow_0xu9r0o">
         <di:waypoint x="3100" y="6097" />
         <di:waypoint x="3100" y="5680" />
+        <di:waypoint x="701" y="5680" />
+        <di:waypoint x="701" y="4113" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_177fm3l_di" bpmnElement="Flow_177fm3l">
+        <di:waypoint x="1201" y="4703" />
+        <di:waypoint x="1201" y="5723" />
+        <di:waypoint x="2380" y="5723" />
+        <di:waypoint x="2380" y="6492" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1738" y="5713" width="66" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0u3d09d_di" bpmnElement="Flow_0u3d09d">
+        <di:waypoint x="2302" y="6570" />
+        <di:waypoint x="2260" y="6570" />
+        <di:waypoint x="2260" y="3920" />
+        <di:waypoint x="1501" y="3920" />
+        <di:waypoint x="1501" y="2623" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xu9r0o_di" bpmnElement="Flow_0xu9r0o">
+        <di:waypoint x="3080" y="6097" />
+        <di:waypoint x="3080" y="5680" />
         <di:waypoint x="701" y="5680" />
         <di:waypoint x="701" y="4113" />
       </bpmndi:BPMNEdge>
