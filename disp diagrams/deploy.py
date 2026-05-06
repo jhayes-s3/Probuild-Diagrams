@@ -43,7 +43,12 @@ def deploy_one(path: Path) -> tuple[bool, str]:
 
 def main() -> int:
     folder = Path(__file__).resolve().parent
-    files = sorted(p for p in folder.iterdir() if p.is_file() and p.suffix in EXTS)
+    files = sorted(
+        p for p in folder.iterdir()
+        if p.is_file()
+        and p.suffix in EXTS
+        and ".before-" not in p.name
+    )
 
     if not files:
         print(f"No .bpmn or .form files in {folder}")
