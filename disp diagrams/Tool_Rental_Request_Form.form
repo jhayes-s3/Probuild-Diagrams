@@ -102,16 +102,6 @@
       }
     },
     {
-      "label": "Register As Member?",
-      "type": "checkbox",
-      "layout": {
-        "row": "Row_1u02vhh",
-        "columns": null
-      },
-      "id": "Field_0neckgq",
-      "key": "registerAsMember"
-    },
-    {
       "text": "##### Confirmation",
       "type": "text",
       "id": "Subheading_confirmation",

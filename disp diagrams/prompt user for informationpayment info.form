@@ -221,6 +221,16 @@
       }
     },
     {
+      "label": "Use Member Financing?",
+      "type": "checkbox",
+      "layout": {
+        "row": "Row_14xpv4f",
+        "columns": null
+      },
+      "id": "Field_1i8duyq",
+      "key": "useLoan"
+    },
+    {
       "label": "Submit",
       "action": "submit",
       "type": "button",
