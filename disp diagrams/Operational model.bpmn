@@ -250,12 +250,10 @@
     </bpmn:laneSet>
     <bpmn:parallelGateway id="Gateway_warehouse_split">
       <bpmn:incoming>Flow_to_warehouse_split</bpmn:incoming>
-      <bpmn:outgoing>Flow_1lr2szv</bpmn:outgoing>
       <bpmn:outgoing>Flow_to_supplier_catch</bpmn:outgoing>
     </bpmn:parallelGateway>
     <bpmn:sequenceFlow id="Flow_183gstt" sourceRef="tag-tools-as-in-need-of-service" targetRef="Event-tools-tagged" />
     <bpmn:sequenceFlow id="Flow_pl2cfm" sourceRef="Event_1dea2s7" targetRef="Event-order-confirmation" />
-    <bpmn:sequenceFlow id="Flow_1lr2szv" sourceRef="Gateway_warehouse_split" targetRef="notify-team-of-new-order" />
     <bpmn:sequenceFlow id="Flow_to_warehouse_split" sourceRef="Event-recieve-items-to-be-sent" targetRef="Gateway_warehouse_split" />
     <bpmn:sequenceFlow id="Flow_to_supplier_catch" sourceRef="Gateway_warehouse_split" targetRef="Event-receive-delivery-notice-with-shipment-manifest" />
     <bpmn:endEvent id="Event-tools-tagged" name="tools tagged for service">
@@ -4666,10 +4664,6 @@
       <bpmndi:BPMNEdge id="Flow_to_warehouse_split_di" bpmnElement="Flow_to_warehouse_split">
         <di:waypoint x="3280" y="5825" />
         <di:waypoint x="3300" y="5825" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_1lr2szv_di" bpmnElement="Flow_1lr2szv">
-        <di:waypoint x="3350" y="5825" />
-        <di:waypoint x="3400" y="5825" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_to_supplier_catch_di" bpmnElement="Flow_to_supplier_catch">
         <di:waypoint x="3325" y="5850" />
